@@ -24,7 +24,7 @@ public class UserBl {
         // Encrypt secret with BCrypt
         String secret = BCrypt.withDefaults().hashToString(12,
                 createUserDto.getSecret().toCharArray());
-        mrUser.setContrasena_wtc_usuario(secret);
+        mrUser.setSecret(secret);
         this.mrUserDao.createUser(mrUser);
     }
 
