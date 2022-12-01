@@ -15,7 +15,8 @@ public interface UserPersonDao {
         fono_wtc_usuario, nombreusuario_wtc_usuario 
         FROM wtc_usuario;
             """)
-    public UserPerson findByUsername(String username);
+    public UserPerson findByUsername(String username); // busca por nombre de usuario
+    
 
 
 }
