@@ -4,14 +4,20 @@ package bo.edu.ucb.sis213.wetaca.entity;
 public class wtc_anuncio {
     private int id_anuncio;
     private int contador_click;
+    private String txUsername;
+    private String txHost;
+    private String txDate;
     
 // constructor vacio
     public wtc_anuncio() {
     }
-// constructor con parametros
-    public wtc_anuncio(int id_anuncio, int contador_click) {
+ // constructor con parametros
+    public wtc_anuncio(int id_anuncio, int contador_click, String txUsername, String txHost, String txDate) {
         this.id_anuncio = id_anuncio;
         this.contador_click = contador_click;
+        this.txUsername = txUsername;
+        this.txHost = txHost;
+        this.txDate = txDate;
     }
 // getters y setters
     public int getId_anuncio() {
@@ -29,11 +35,35 @@ public class wtc_anuncio {
     public void setContador_click(int contador_click) {
         this.contador_click = contador_click;
     }
-// toString
+
+    public String getTxUsername() {
+        return txUsername;
+    }
+
+    public void setTxUsername(String txUsername) {
+        this.txUsername = txUsername;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
+    }
+
+    public String getTxDate() {
+        return txDate;
+    }
+
+    public void setTxDate(String txDate) {
+        this.txDate = txDate;
+    }
+
+    // metodo toString
     @Override
     public String toString() {
-        return "wtc_anuncio{" + "id_anuncio=" + id_anuncio + ", contador_click=" + contador_click + '}';
+        return "wtc_anuncio{" + "id_anuncio=" + id_anuncio + ", contador_click=" + contador_click + ", txUsername=" + txUsername + ", txHost=" + txHost + ", txDate=" + txDate + '}';
     }
-    
     
 }
