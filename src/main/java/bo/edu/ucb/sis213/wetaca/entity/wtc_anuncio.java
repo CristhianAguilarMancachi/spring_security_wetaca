@@ -1,7 +1,7 @@
 package bo.edu.ucb.sis213.wetaca.entity;
 
 // clase de la tabla wtc_anuncio
-public class wtc_anuncio {
+public class Wtc_anuncio {
     private int id_anuncio; // id del anuncio
     private int contador_click; //  contador de click
     private String txUsername; //   usuario que creo el anuncio
@@ -9,10 +9,10 @@ public class wtc_anuncio {
     private String txDate; //   fecha de creacion del anuncio
     
 // constructor vacio
-    public wtc_anuncio() {
+    public Wtc_anuncio() {
     }
  // constructor con parametros
-    public wtc_anuncio(int id_anuncio, int contador_click, String txUsername, String txHost, String txDate) {
+    public Wtc_anuncio(int id_anuncio, int contador_click, String txUsername, String txHost, String txDate) {
         this.id_anuncio = id_anuncio;
         this.contador_click = contador_click;
         this.txUsername = txUsername;
