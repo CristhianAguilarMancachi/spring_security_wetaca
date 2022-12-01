@@ -1,37 +1,57 @@
 package bo.edu.ucb.sis213.wetaca.dto;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
+public class PlatoInfoIdDto {
+    private String nombre;
+    private String descripcion;
+    private String imagen;
+    private Double precio;
 
-
-public class PlatoDto {
-
-    public PlatoInfo findPLatoInfoById(Integer id){
-        PlatoInfo platoInfo = new PlatoInfo();
-        if(platoInfo == null){
-            throw new WetacaException("SCTY-4008");
-        }
-        return platoInfo;
-    }
-    
-    @GetMapping("/platos-info/{idPlato}")
-    public ResponseEntity<ResponseDto> getPlatoInfo(@RequestHeader Map<String, String> headers, 
-    @PathVariable Integer idPlato )  {
-    
-        try{
-            // Vereficamos que el usuario este identificado
-            String jwt = AuthUtil.getTokenFromHeader(headers);
-            AuthUtil.getUserNameFromToken(jwt);
-            PlatoInfo platoInfo = platoBl.findPLatoInfoById(idPlato);
-            ResponseDto<PlatoInfo> responseDto = new ResponseDto<>(platoInfo, "SCTY-0000", true);
-            return new ResponseEntity<>(responseDto, HttpStatus.OK);
-        }catch (WetacaException ex){
-            // Si hay error, se captura y se envia el error
-            ResponseDto<String> responseDto = new ResponseDto<>(null, ex.getStatusCode(), ex.getMessage());
-            return new ResponseEntity<>(responseDto, ex.getHttpStatus());
-        }
+    public PlatoInfoIdDto() {
     }
 
+    public PlatoInfoIdDto(String nombre, String descripcion, String imagen, Double precio) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+        this.precio = precio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public Double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "PlatoInfoIdDto{" + "nombre=" + nombre + ", descripcion=" + descripcion + ", imagen=" + imagen + ", precio=" + precio + '}';
+    }
 }
 
 

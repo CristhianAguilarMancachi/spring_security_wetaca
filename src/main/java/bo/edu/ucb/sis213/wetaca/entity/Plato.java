@@ -1,133 +1,125 @@
 package bo.edu.ucb.sis213.wetaca.entity;
 
-public class WtcPlato {
-    private Integer id_plato;
-    private String nombre_plato;
-    private String descripcion_plato;
-    private String imagen_plato;
-    private Integer precio_plato;
-    private Integer categoria_plato;
-    private boolean estado_plato;
-    private String tx_username;
-    private String tx_host;
-    private String tx_date;
+public class Plato {
+    private Integer idPlato;
+    private String nombre;
+    private String descripcion;
+    private String imagen;
+    private Double precio;
+    private String categoria;
+    private String ingredientes;
+    private boolean estado;
+    private String txUsuario;
+    private String txHost;
+    private String txFecha;
 
-    public WtcPlato() {
+    public Plato() {
     }
 
-    public WtcPlato(Integer id_plato, String nombre_plato, String descripcion_plato, String imagen_plato, Integer precio_plato, Integer categoria_plato, boolean estado_plato, String tx_username, String tx_host, String tx_date) {
-        this.id_plato = id_plato;
-        this.nombre_plato = nombre_plato;
-        this.descripcion_plato = descripcion_plato;
-        this.imagen_plato = imagen_plato;
-        this.precio_plato = precio_plato;
-        this.categoria_plato = categoria_plato;
-        this.estado_plato = estado_plato;
-        this.tx_username = tx_username;
-        this.tx_host = tx_host;
-        this.tx_date = tx_date;
+    public Plato(Integer idPlato, String nombre, String descripcion, String imagen, Double precio, String categoria, String ingredientes, boolean estado, String tx_username, String tx_host, String tx_date) {
+        this.idPlato = idPlato;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.imagen = imagen;
+        this.precio = precio;
+        this.categoria = categoria;
+        this.ingredientes = ingredientes;
+        this.estado = estado;
+        this.txUsuario = tx_username;
+        this.txHost = tx_host;
+        this.txFecha = tx_date;
     }
 
-    public Integer getId_plato() {
-        return id_plato;
+    public Integer getIdPlato() {
+        return idPlato;
     }
 
-    public void setId_plato(Integer id_plato) {
-        this.id_plato = id_plato;
+    public void setIdPlato(Integer idPlato) {
+        this.idPlato = idPlato;
     }
 
-    public String getNombre_plato() {
-        return nombre_plato;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombre_plato(String nombre_plato) {
-        this.nombre_plato = nombre_plato;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getDescripcion_plato() {
-        return descripcion_plato;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripcion_plato(String descripcion_plato) {
-        this.descripcion_plato = descripcion_plato;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public String getImagen_plato() {
-        return imagen_plato;
+    public String getImagen() {
+        return imagen;
     }
 
-    public void setImagen_plato(String imagen_plato) {
-        this.imagen_plato = imagen_plato;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
-    public Integer getPrecio_plato() {
-        return precio_plato;
+    public Double getPrecio() {
+        return precio;
     }
 
-    public void setPrecio_plato(Integer precio_plato) {
-        this.precio_plato = precio_plato;
+    public void setPrecio(Double precio) {
+        this.precio = precio;
     }
 
-    public Integer getCategoria_plato() {
-        return categoria_plato;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setCategoria_plato(Integer categoria_plato) {
-        this.categoria_plato = categoria_plato;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public boolean isEstado_plato() {
-        return estado_plato;
+    public String getIngredientes() {
+        return ingredientes;
     }
 
-    public void setEstado_plato(boolean estado_plato) {
-        this.estado_plato = estado_plato;
+    public void setIngredientes(String ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public String getTx_username() {
-        return tx_username;
+        return txUsuario;
     }
 
     public void setTx_username(String tx_username) {
-        this.tx_username = tx_username;
+        this.txUsuario = tx_username;
     }
 
     public String getTx_host() {
-        return tx_host;
+        return txHost;
     }
 
     public void setTx_host(String tx_host) {
-        this.tx_host = tx_host;
+        this.txHost = tx_host;
     }
 
     public String getTx_date() {
-        return tx_date;
+        return txFecha;
     }
 
     public void setTx_date(String tx_date) {
-        this.tx_date = tx_date;
+        this.txFecha = tx_date;
     }
 
     @Override
     public String toString() {
-        return "WetacaPlato{" +
-                "id_plato=" + id_plato +
-                ", nombre_plato='" + nombre_plato + '\'' +
-                ", descripcion_plato='" + descripcion_plato + '\'' +
-                ", imagen_plato='" + imagen_plato + '\'' +
-                ", precio_plato=" + precio_plato +
-                ", categoria_plato=" + categoria_plato +
-                ", estado_plato=" + estado_plato +
-                ", tx_username='" + tx_username + '\'' +
-                ", tx_host='" + tx_host + '\'' +
-                ", tx_date='" + tx_date + '\'' +
-                '}';
+        return "Plato{" + "idPlato=" + idPlato + ", nombre=" + nombre + ", descripcion=" + descripcion + ", imagen=" + imagen + ", precio=" + precio + ", categoria=" + categoria + ", ingredientes=" + ingredientes + ", estado=" + estado + ", tx_username=" + txUsuario + ", tx_host=" + txHost + ", tx_date=" + txFecha + '}';
     }
-
-
-
-
-    
-
-    
 }

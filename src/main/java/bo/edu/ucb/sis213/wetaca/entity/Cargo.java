@@ -1,6 +1,6 @@
 package bo.edu.ucb.sis213.wetaca.entity;
 
-public class WtcCargo {
+public class Cargo {
 
     private Integer roleId;
     private String name;
@@ -10,7 +10,7 @@ public class WtcCargo {
     private String txHost;
     private String txDate;
 
-    public WtcCargo() {
+    public Cargo() {
     }
 
     public Integer getRoleId() {

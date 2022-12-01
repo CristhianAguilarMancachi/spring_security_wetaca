@@ -22,14 +22,14 @@ public class AuthUtil {
                     .verify(jwt)
                     .getSubject();
         } catch (JWTVerificationException ex) {
-            throw new MrJeffException("Usuario no autenticado");
+            throw new WetacaException("Usuario no autenticado");
         }
         return subject;
     }
 
     public static String getTokenFromHeader(Map<String, String> headers) {
         if (headers.get("Authorization") == null && headers.get("authorization") == null ) {
-            throw new MrJeffException("No se ha enviado el token de autorización");
+            throw new WetacaException("No se ha enviado el token de autorización");
         }
         // Se acostumbra que cuando se envia el token, se lo envia en el siguiente formato
         // Authorization: Bearer TOKEN
@@ -64,7 +64,7 @@ public class AuthUtil {
                 .verify(jwt)
                 .getClaim("roles").asList(String.class);
         if(!roles.contains(role)) {
-            throw new MrJeffException("No tiene permisos para realizar esta acción");
+            throw new WetacaException("No tiene permisos para realizar esta acción");
         }
     }
 }

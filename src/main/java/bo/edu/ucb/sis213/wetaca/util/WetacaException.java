@@ -1,11 +1,11 @@
 package bo.edu.ucb.sis213.wetaca.util;
 
-public class MrJeffException extends RuntimeException{
-    public MrJeffException(String message) {
+public class WetacaException extends RuntimeException{
+    public WetacaException(String message) {
         super(message);
     }
 
-    public MrJeffException(String message, Throwable cause) {
+    public WetacaException(String message, Throwable cause) {
         super(message, cause);
     }
 }
