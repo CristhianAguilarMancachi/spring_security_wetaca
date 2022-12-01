@@ -2,11 +2,11 @@ package bo.edu.ucb.sis213.wetaca.entity;
 
 // clase de la tabla wtc_anuncio
 public class wtc_anuncio {
-    private int id_anuncio;
-    private int contador_click;
-    private String txUsername;
-    private String txHost;
-    private String txDate;
+    private int id_anuncio; // id del anuncio
+    private int contador_click; //  contador de click
+    private String txUsername; //   usuario que creo el anuncio
+    private String txHost; // host del usuario
+    private String txDate; //   fecha de creacion del anuncio
     
 // constructor vacio
     public wtc_anuncio() {
@@ -65,5 +65,5 @@ public class wtc_anuncio {
     public String toString() {
         return "wtc_anuncio{" + "id_anuncio=" + id_anuncio + ", contador_click=" + contador_click + ", txUsername=" + txUsername + ", txHost=" + txHost + ", txDate=" + txDate + '}';
     }
-    
+
 }
