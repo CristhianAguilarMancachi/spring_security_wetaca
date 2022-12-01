@@ -41,7 +41,7 @@ public class SecurityBl {
         WtcUsuario mrUser = mrUserDao.findByPrimaryKey(userId);
         // Transformamos la entidad de Base de Datos
         // a un DTO para retornar via API  (Data Transfer Object)
-        UserDto userDto = new UserDto(mrUser.getUserId(), mrUser.getUsername());
+        UserDto userDto = new UserDto(mrUser.getId_wtc_usuario(), mrUser.getUsername());
         return userDto;
     }
 
