@@ -1,7 +1,11 @@
 package bo.edu.ucb.sis213.wetaca.dto;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
+
+import bo.edu.ucb.sis213.wetaca.util.AuthUtil;
 
 
 public class PlatoDto {
