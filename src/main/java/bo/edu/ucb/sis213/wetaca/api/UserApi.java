@@ -6,7 +6,7 @@ import bo.edu.ucb.sis213.wetaca.dto.CreateUserDto;
 import bo.edu.ucb.sis213.wetaca.dto.ResponseDto;
 import bo.edu.ucb.sis213.wetaca.entity.UserPerson;
 import bo.edu.ucb.sis213.wetaca.util.AuthUtil;
-import bo.edu.ucb.sis213.wetaca.util.MrJeffException;
+import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -30,7 +30,7 @@ public class UserApi {
             AuthUtil.verifyHasRole(jwt, "CREAR_USUARIO"); // Authorization
             userBl.createUser(createUserDto);
             return new ResponseDto<>("Usuario creado correctamente", null, true);
-        } catch (MrJeffException ex) {
+        } catch (WetacaException ex) {
             return new ResponseDto<>(ex.getMessage(), null, false);
         }
     }
@@ -51,7 +51,7 @@ public class UserApi {
             String username = AuthUtil.isUserAuthenticated(AuthUtil.getTokenFromHeader(headers));
             return new ResponseDto<>(this.userBl.findByUsername(username), null, true);
         }
-        catch (MrJeffException ex) {
+        catch (WetacaException ex) {
             return new ResponseDto<>(null, ex.getMessage(), false);
         }
     }

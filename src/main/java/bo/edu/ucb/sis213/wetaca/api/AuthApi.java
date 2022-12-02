@@ -4,7 +4,7 @@ import bo.edu.ucb.sis213.wetaca.bl.SecurityBl;
 import bo.edu.ucb.sis213.wetaca.dto.AuthReqDto;
 import bo.edu.ucb.sis213.wetaca.dto.AuthResDto;
 import bo.edu.ucb.sis213.wetaca.dto.ResponseDto;
-import bo.edu.ucb.sis213.wetaca.util.MrJeffException;
+import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +35,7 @@ public class AuthApi {
             // Retorna los tokens, null (porque no hay error), true porque fue exitoso
             try {
                 return new ResponseDto<>(securityBl.authenticate(authReqDto), null, true);
-            } catch (MrJeffException ex) {
+            } catch (WetacaException ex) {
                 return new ResponseDto<>(null, ex.getMessage(), false);
             }
         } else {
@@ -55,7 +55,7 @@ public class AuthApi {
             try {
                 ResponseDto<AuthResDto> responseDto = new  ResponseDto<>(securityBl.authenticate(authReqDto), null, true);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
-            } catch (MrJeffException ex) {
+            } catch (WetacaException ex) {
                 ResponseDto<AuthResDto> responseDto = new ResponseDto<>(null, ex.getMessage(),
                         false);
                 return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);

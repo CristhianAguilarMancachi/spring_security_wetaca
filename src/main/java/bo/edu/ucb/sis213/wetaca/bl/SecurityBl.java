@@ -6,9 +6,9 @@ import bo.edu.ucb.sis213.wetaca.dao.UserDao;
 import bo.edu.ucb.sis213.wetaca.dto.AuthReqDto;
 import bo.edu.ucb.sis213.wetaca.dto.AuthResDto;
 import bo.edu.ucb.sis213.wetaca.dto.UserDto;
-import bo.edu.ucb.sis213.wetaca.entity.WtcCargo;
+import bo.edu.ucb.sis213.wetaca.entity.Cargo;
 import bo.edu.ucb.sis213.wetaca.entity.WtcUsuario;
-import bo.edu.ucb.sis213.wetaca.util.MrJeffException;
+import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -64,9 +64,9 @@ public class SecurityBl {
                 // Procedo a generar el token
                 System.out.println("Las constraseñas coinciden se genera el token");
                 // Consultamos los roles que tiene el usuario
-                List<WtcCargo> roles = mrRoleDao.findRolesByUsername(credentials.username());
+                List<Cargo> roles = mrRoleDao.findRolesByUsername(credentials.username());
                 List<String> rolesAsString = new ArrayList<>();
-                for ( WtcCargo role : roles) {
+                for ( Cargo role : roles) {
                     rolesAsString.add(role.getName());
                 }
                 // Con esto no será necesario refrescar token.
@@ -75,11 +75,11 @@ public class SecurityBl {
 
             } else {
                 System.out.println("Las constraseñas no coinciden");
-                throw new MrJeffException("Forbiden the secret and password are wrong.");
+                throw new WetacaException("Forbiden the secret and password are wrong.");
             }
         } else {
             System.out.println("Usuario no existente");
-            throw new MrJeffException("El usuario y contraseña son incorrectos.");
+            throw new WetacaException("El usuario y contraseña son incorrectos.");
         }
         return result;
     }
@@ -98,7 +98,7 @@ public class SecurityBl {
                     .getSubject();
             result = mrUserDao.findByUsername(username);
         } catch (Exception exception){
-            throw new MrJeffException("El usuario y cotraseña son incorrectos.", exception);
+            throw new WetacaException("El usuario y cotraseña son incorrectos.", exception);
         }
         return result;
     }
@@ -126,7 +126,7 @@ public class SecurityBl {
                     .sign(algorithm);
             result.setRefresh(refreshToken);
         } catch (JWTCreationException exception){
-            throw new MrJeffException("Error al generar el token", exception);
+            throw new WetacaException("Error al generar el token", exception);
         }
         return result;
     }

@@ -1,6 +1,6 @@
 package bo.edu.ucb.sis213.wetaca.dao;
 
-import bo.edu.ucb.sis213.wetaca.entity.WtcCargo;
+import bo.edu.ucb.sis213.wetaca.entity.Cargo;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
@@ -21,5 +21,5 @@ public interface RoleDao {
               AND user_group.status = true
               AND usr.status = true
             """)
-    public List<WtcCargo> findRolesByUsername(String username);
+    public List<Cargo> findRolesByUsername(String username);
 }
