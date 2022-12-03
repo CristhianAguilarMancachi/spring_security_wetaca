@@ -1,5 +1,7 @@
 package bo.edu.ucb.sis213.wetaca.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
@@ -49,7 +51,7 @@ public interface PlatoDao {
                 FROM Plato
                 """
         )
-        Plato findAllPlatos();
+        List<Plato> findAllPlatos();
 
         // Update de la tabla Plato con los atributos de la clase Plato que son nombre, descripcion, ingrediente, precio
         @Update(
@@ -84,6 +86,17 @@ public interface PlatoDao {
                 """
         )
         Plato findPlatoByPlatoId(Integer idPlato);
+
+        // Funcion findPlatoInfoByPlatoId
+        @Select(
+                """
+                SELECT p.id_plato, p.nombre, p.descripcion, p.ingrediente, p.precio, c.nombre
+                FROM Plato p
+                INNER JOIN Categoria c ON p.id_categoria = c.id_categoria
+                WHERE p.id_plato = #{idPlato}
+                """
+        )
+        Plato findPlatoInfoByPlatoId(Integer idPlato);
 
     
 

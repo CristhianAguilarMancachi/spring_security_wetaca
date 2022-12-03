@@ -5,16 +5,22 @@ public class Cargo {
     private Integer id_cargo; //id de la tabla cargo
     private String descripcion_cargo; //descripcion del cargo de la tabla cargo
     private Integer id_wtc_usuario; //id del usuario de la tabla wtc_usuario
+    private String txUsuario;
+    private String txHost;
+    private String txFecha;
 
     //constructor de la clase
     public Cargo() {
     }
 
     //constructor con parametros de la clase
-    public Cargo(Integer id_cargo, String descripcion_cargo, Integer id_wtc_usuario) {
+    public Cargo(Integer id_cargo, String descripcion_cargo, Integer id_wtc_usuario, String txUsuario, String txHost, String txFecha) {
         this.id_cargo = id_cargo;
         this.descripcion_cargo = descripcion_cargo;
         this.id_wtc_usuario = id_wtc_usuario;
+        this.txUsuario = txUsuario;
+        this.txHost = txHost;
+        this.txFecha = txFecha;
     }
 
     //getters y setters de la clase
@@ -43,13 +49,32 @@ public class Cargo {
         this.id_wtc_usuario = id_wtc_usuario;
     }
 
-    //toString de la clase
+    public String getTxUsuario() {
+        return txUsuario;
+    }
+
+    public void setTxUsuario(String txUsuario) {
+        this.txUsuario = txUsuario;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
+    }
+
+    public String getTxFecha() {
+        return txFecha;
+    }
+
+    public void setTxFecha(String txFecha) {
+        this.txFecha = txFecha;
+    }
 
     @Override
     public String toString() {
-        return "Cargo{" + "id_cargo=" + id_cargo + ", descripcion_cargo=" + descripcion_cargo + ", id_wtc_usuario=" + id_wtc_usuario + '}';
+        return "Cargo{" + "id_cargo=" + id_cargo + ", descripcion_cargo=" + descripcion_cargo + ", id_wtc_usuario=" + id_wtc_usuario + ", txUsuario=" + txUsuario + ", txHost=" + txHost + ", txFecha=" + txFecha + '}';
     }
-    
-
-   
 }

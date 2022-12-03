@@ -67,4 +67,12 @@ public class AuthUtil {
             throw new WetacaException("No tiene permisos para realizar esta acción");
         }
     }
+
+    // Funcion que nos permite obtener el id del usuario que esta autenticado || funcion de prueba
+    public static String getUserNameFromToken(String jwt) {
+        return JWT.require(Algorithm.HMAC256(SecurityBl.JWT_SECRET))
+                .build()
+                .verify(jwt)
+                .getClaim("username").asString();
+    }
 }

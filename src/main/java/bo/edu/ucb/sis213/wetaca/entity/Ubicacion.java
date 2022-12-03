@@ -6,16 +6,23 @@ public class Ubicacion {
     private Double latitud; //latitud de la tabla ubicacion
     private Double longitud; //longitud de la tabla ubicacion
     private String descripcion_ubicacion; //descripcion de la ubicacion de la tabla ubicacion
+    private String txUsuario;
+    private String txHost;
+    private String txFecha;
+
  //constructor de la clase
     public Ubicacion() {
     }
 
     //constructor con parametros de la clase
-    public Ubicacion(Integer id_ubicacion, Double latitud, Double longitud, String descripcion_ubicacion) {
+    public Ubicacion(Integer id_ubicacion, Double latitud, Double longitud, String descripcion_ubicacion, String txUsuario, String txHost, String txFecha) {
         this.id_ubicacion = id_ubicacion;
         this.latitud = latitud;
         this.longitud = longitud;
         this.descripcion_ubicacion = descripcion_ubicacion;
+        this.txUsuario = txUsuario;
+        this.txHost = txHost;
+        this.txFecha = txFecha;
     }
 
     //getters y setters de la clase
@@ -51,13 +58,35 @@ public class Ubicacion {
         this.descripcion_ubicacion = descripcion_ubicacion;
     }
 
-    //toString de la clase
+    public String getTxUsuario() {
+        return txUsuario;
+    }
+
+    public void setTxUsuario(String txUsuario) {
+        this.txUsuario = txUsuario;
+    }
+
+    public String getTxHost() {
+        return txHost;
+    }
+
+    public void setTxHost(String txHost) {
+        this.txHost = txHost;
+    }
+
+    public String getTxFecha() {
+        return txFecha;
+    }
+
+    public void setTxFecha(String txFecha) {
+        this.txFecha = txFecha;
+    }
 
     @Override
     public String toString() {
-        return "Ubicacion{" + "id_ubicacion=" + id_ubicacion + ", latitud=" + latitud + ", longitud=" + longitud + ", descripcion_ubicacion=" + descripcion_ubicacion + '}';
+        return "Ubicacion{" + "id_ubicacion=" + id_ubicacion + ", latitud=" + latitud + ", longitud=" + longitud + ", descripcion_ubicacion=" + descripcion_ubicacion + ", txUsuario=" + txUsuario + ", txHost=" + txHost + ", txFecha=" + txFecha + '}';
     }
-
+    
     
 
     

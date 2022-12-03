@@ -67,7 +67,7 @@ public class SecurityBl {
                 List<Cargo> roles = mrRoleDao.findRolesByUsername(credentials.username());
                 List<String> rolesAsString = new ArrayList<>();
                 for ( Cargo role : roles) {
-                    rolesAsString.add(role.getName());
+                    rolesAsString.add(role.getDescripcion_cargo());
                 }
                 // Con esto no será necesario refrescar token.
                 // FIXME: Error de seguridad, los tokens deberían ser de corta duración.

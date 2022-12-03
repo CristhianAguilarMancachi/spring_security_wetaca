@@ -3,12 +3,13 @@ package bo.edu.ucb.sis213.wetaca.bl;
 import org.springframework.stereotype.Service;
 
 import bo.edu.ucb.sis213.wetaca.dao.PedidoDao;
+import bo.edu.ucb.sis213.wetaca.dao.UserDao;
 import bo.edu.ucb.sis213.wetaca.entity.Pedido;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 
 @Service
 public class PedidoBl {
-    private final PedidoDao platoDao;
+    private final PedidoDao pedidoDao;
     private final UserDao userDao;
 
     public PedidoBl(PedidoDao pedidoDao, UserDao userDao) {
@@ -30,8 +31,8 @@ public class PedidoBl {
     }
 
     // funcion findPedidoInfoByPedidoId similar a findPlatoInfoByPlatoId
-    public PedidoInfo findPedidoInfoByPedidoId(Integer pedidoId) {
-        PedidoInfo pedidoInfo = pedidoDao.findPedidoInfoByPedidoId(pedidoId);
+    public Pedido findPedidoInfoByPedidoId(Integer pedidoId) {
+        Pedido pedidoInfo = pedidoDao.findPedidoInfoByPedidoId(pedidoId);
         if(pedidoInfo == null) {
             throw new WetacaException("Pedido no encontrado");
         }

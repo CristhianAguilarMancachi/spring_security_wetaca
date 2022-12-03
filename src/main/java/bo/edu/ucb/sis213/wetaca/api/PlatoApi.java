@@ -40,7 +40,7 @@ public class PlatoApi {
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 String username = AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "REGISTRAR PLATO");
-                platoBl.createPlato(platoDto, username);
+                platoBl.createPlato(platoDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Plato creado correctamente", "", false, null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             }catch(WetacaException ex){

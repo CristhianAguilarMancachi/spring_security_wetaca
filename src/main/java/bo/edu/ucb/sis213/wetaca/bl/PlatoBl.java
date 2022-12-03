@@ -22,10 +22,9 @@ public class PlatoBl {
 
     }
 
-    public void createPlato(PlatoDatoDto createPlatoDto, String userName) {
+    public void createPlato(PlatoDatoDto createPlatoDto) {
         // Crear el plato
         Plato plato = new Plato();
-        plato.setId_wtc_usuario(userDao.findUserIdByUserName(userName));
         plato.setNombre(createPlatoDto.getNombre());
         plato.setDescripcion(createPlatoDto.getDescripcion());
         plato.setIngredientes(createPlatoDto.getIngredientes());
@@ -73,13 +72,14 @@ public class PlatoBl {
         return platoInfo;
     }
 
-    // Datos mascota perfil
-    public PlatoData findPlatoByPlatoId(Integer petId) {
-        PlatoData platoData = platoDao.findPlatoDataByPlatoId(petId);
-        if (platoData == null) {
+    // Listado de los platos con platoDao.findALL
+    public List<PlatoDatoDto> findAllPlatoInfo() {
+        List<PlatoDatoDto> platoInfo = platoDao.findAllPlatos();
+        if (platoInfo.isEmpty()) {
             throw new WetacaException("");
         }
-        return platoData;
+        return platoInfo;
     }
+    
 
 }
