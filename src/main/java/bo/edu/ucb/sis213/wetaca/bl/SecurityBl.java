@@ -96,7 +96,7 @@ public class SecurityBl {
                     .build()
                     .verify(jwt)
                     .getSubject();
-            result = mrUserDao.findByUsername(username);
+            result = mrUserDao.buscarUsuarioPorUserName(username);
         } catch (Exception exception){
             throw new WetacaException("El usuario y cotraseña son incorrectos.", exception);
         }

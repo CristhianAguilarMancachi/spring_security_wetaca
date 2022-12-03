@@ -18,8 +18,18 @@ public interface Wtc_usuarioDao {
                 nombreusuario_wtc_usuario = #{nombreusuario_wtc_usuario}
                 AND status_wtc_usuario = true
             """)
-    public Wtc_usuario findByUsername(String nombreusuario_wtc_usuario);
+    public Wtc_usuario buscarUsuarioPorUserName(String nombreusuario_wtc_usuario);
 
+    //Selecciona un id_wtc_usuario por su nombre de usuario
+    @Select("""
+            Select id_wtc_usuario
+            From 
+                wtc_usuario
+            Where
+                nombreusuario_wtc_usuario = #{nombreusuario_wtc_usuario}
+                AND status_wtc_usuario = true
+            """)
+    public Integer buscarIdUsuarioPorUserName(String nombreusuario_wtc_usuario);
 
     // Inserta un usuario nuevo
     @Insert("""
@@ -28,7 +38,7 @@ public interface Wtc_usuarioDao {
             Values (#{ci_wtc_usuario}, #{nombre_wtc_usuario}, #{apellido_wtc_usuario},
              #{correo_wtc_usuario}, #{fono_wtc_usuario}, #{nombreusuario_wtc_usuario}, #{password_wtc_usuario}, #{status_wtc_usuario})
             """)
-    public void insert(Wtc_usuario wtc_usuario);
+    public void agregarNuevoUsuario(Wtc_usuario wtc_usuario);
 
     /*
      @Select("""
