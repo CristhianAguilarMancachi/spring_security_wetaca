@@ -13,7 +13,7 @@ public class AuthUtil {
     public static String getUserNameFromToken(String token) {
         try {
             String subject =null;
-            subject = JWT.require(Algorithm.HMAC256(SeguridadBl.JWT_SECRET)).build().verify(token).getSubject(); //se obtiene el nombre de usuario del token
+            subject = JWT.require(Algorithm.HMAC256(SeguridadBl.JWT_SECRET)).build().verify(token).getSubject(); // se obtiene el nombre de usuario del token
             return subject;
         } catch (JWTVerificationException exception) {
             throw new WetacaException("Token invalido");

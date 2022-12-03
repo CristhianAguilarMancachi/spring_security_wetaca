@@ -6,14 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface UserPersonDao {
-    /**
-     * En la vida real sería un query similar a:
-     *  SELECT p.first_name, p.last_name, u.username
-     *  FROM user u JOIN person p ON u.person_id = p.person_id
-     *  WHERE u.username = #{username}
-     *  AND u.status = true
-     */
-
+// Selecciona un usuario por su nombre de usuario
     @Select("""
             SELECT 'LUISA' as first_name, 'RAMIREZ' as last_name, username
             from 
