@@ -2,83 +2,54 @@ package bo.edu.ucb.sis213.wetaca.entity;
 
 public class Cargo {
 
-    private Integer roleId;
-    private String name;
-    private String description;
-    private Boolean status;
-    private String txUsername;
-    private String txHost;
-    private String txDate;
+    private Integer id_cargo; //id de la tabla cargo
+    private String descripcion_cargo; //descripcion del cargo de la tabla cargo
+    private Integer id_wtc_usuario; //id del usuario de la tabla wtc_usuario
 
+    //constructor de la clase
     public Cargo() {
     }
 
-    public Integer getRoleId() {
-        return roleId;
+    //constructor con parametros de la clase
+    public Cargo(Integer id_cargo, String descripcion_cargo, Integer id_wtc_usuario) {
+        this.id_cargo = id_cargo;
+        this.descripcion_cargo = descripcion_cargo;
+        this.id_wtc_usuario = id_wtc_usuario;
     }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    //getters y setters de la clase
+
+    public Integer getId_cargo() {
+        return id_cargo;
     }
 
-    public String getName() {
-        return name;
+    public void setId_cargo(Integer id_cargo) {
+        this.id_cargo = id_cargo;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getDescripcion_cargo() {
+        return descripcion_cargo;
     }
 
-    public String getDescription() {
-        return description;
+    public void setDescripcion_cargo(String descripcion_cargo) {
+        this.descripcion_cargo = descripcion_cargo;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public Integer getId_wtc_usuario() {
+        return id_wtc_usuario;
     }
 
-    public Boolean getStatus() {
-        return status;
+    public void setId_wtc_usuario(Integer id_wtc_usuario) {
+        this.id_wtc_usuario = id_wtc_usuario;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public String getTxUsername() {
-        return txUsername;
-    }
-
-    public void setTxUsername(String txUsername) {
-        this.txUsername = txUsername;
-    }
-
-    public String getTxHost() {
-        return txHost;
-    }
-
-    public void setTxHost(String txHost) {
-        this.txHost = txHost;
-    }
-
-    public String getTxDate() {
-        return txDate;
-    }
-
-    public void setTxDate(String txDate) {
-        this.txDate = txDate;
-    }
+    //toString de la clase
 
     @Override
     public String toString() {
-        return "MrRole{" +
-                "roleId=" + roleId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                ", txUsername='" + txUsername + '\'' +
-                ", txHost='" + txHost + '\'' +
-                ", txDate='" + txDate + '\'' +
-                '}';
+        return "Cargo{" + "id_cargo=" + id_cargo + ", descripcion_cargo=" + descripcion_cargo + ", id_wtc_usuario=" + id_wtc_usuario + '}';
     }
+    
+
+   
 }
