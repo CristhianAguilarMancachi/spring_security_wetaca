@@ -7,7 +7,7 @@ import bo.edu.ucb.sis213.wetaca.dto.AuthReqDto;
 import bo.edu.ucb.sis213.wetaca.dto.AuthResDto;
 import bo.edu.ucb.sis213.wetaca.dto.UserDto;
 import bo.edu.ucb.sis213.wetaca.entity.Cargo;
-import bo.edu.ucb.sis213.wetaca.entity.WtcUsuario;
+import bo.edu.ucb.sis213.wetaca.entity.Wtc_usuario;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -38,10 +38,10 @@ public class SecurityBl {
      * @return
      */
     public UserDto getUserByPk(Integer userId) {
-        WtcUsuario mrUser = mrUserDao.findByPrimaryKey(userId);
+        Wtc_usuario mrUser = mrUserDao.findByPrimaryKey(userId);
         // Transformamos la entidad de Base de Datos
         // a un DTO para retornar via API  (Data Transfer Object)
-        UserDto userDto = new UserDto(mrUser.getUserId(), mrUser.getUsername());
+        UserDto userDto = new UserDto(mrUser.getId_wtc_usuario(), mrUser.getCi_wtc_usuario());
         return userDto;
     }
 
@@ -88,9 +88,9 @@ public class SecurityBl {
      * @param token
      * @return
      */
-    public WtcUsuario validateJwtToken(String jwt) {
+    public Wtc_usuario validateJwtToken(String jwt) {
         System.out.printf("VAlidando token: " + jwt);
-        WtcUsuario result = null;
+        Wtc_usuario result = null;
         try {
             String username = JWT.require(Algorithm.HMAC256(JWT_SECRET))
                     .build()

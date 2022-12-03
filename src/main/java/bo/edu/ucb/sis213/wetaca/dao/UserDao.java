@@ -1,6 +1,6 @@
 package bo.edu.ucb.sis213.wetaca.dao;
 
-import bo.edu.ucb.sis213.wetaca.entity.WtcUsuario;
+import bo.edu.ucb.sis213.wetaca.entity.Wtc_usuario;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
@@ -17,7 +17,7 @@ public interface UserDao {
                 user_id = #{userId}
                 AND status = true
             """)
-    WtcUsuario findByPrimaryKey(Integer userId);
+    Wtc_usuario findByPrimaryKey(Integer userId);
 
     @Select("""
             select user_id, username, secret, status, tx_username,
@@ -28,7 +28,7 @@ public interface UserDao {
                 username = #{username}
                 AND status = true
             """)
-    WtcUsuario findByUsername(String username);
+    Wtc_usuario findByUsername(String username);
 
     @Select("""
             select secret
@@ -45,6 +45,6 @@ public interface UserDao {
        mr_user (username, secret, status, tx_username, tx_host, tx_date)
       VALUES (#{username}, #{secret}, true, 'anonymous', 'localhost', now())  
             """)
-    void createUser (WtcUsuario mrUser);
+    void createUser (Wtc_usuario mrUser);
 
 }

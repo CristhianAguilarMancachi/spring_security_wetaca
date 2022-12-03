@@ -20,7 +20,7 @@ public class PedidoBl {
     public void createPedido(String userName, PedidoDatoDto createPedidoDto) {
         // Crear el plato
         Pedido pedido = new Pedido();
-        pedido.setUserId(userDao.findUserIdByUserName(userName));
+        pedido.setId_wtc_usuario(userDao.findUserIdByUserName(userName));
         pedido.setNombre(createPedidoDto.getNombre());
         pedido.setDescripcion(createPedidoDto.getDescripcion());
         pedido.setIngredientes(createPedidoDto.getIngredientes());

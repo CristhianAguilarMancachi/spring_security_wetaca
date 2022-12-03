@@ -25,7 +25,7 @@ public class PlatoBl {
     public void createPlato(PlatoDatoDto createPlatoDto, String userName) {
         // Crear el plato
         Plato plato = new Plato();
-        plato.setUserId(userDao.findUserIdByUserName(userName));
+        plato.setId_wtc_usuario(userDao.findUserIdByUserName(userName));
         plato.setNombre(createPlatoDto.getNombre());
         plato.setDescripcion(createPlatoDto.getDescripcion());
         plato.setIngredientes(createPlatoDto.getIngredientes());
