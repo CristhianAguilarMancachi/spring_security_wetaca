@@ -22,7 +22,7 @@ public class PlatoBl {
 
     }
 
-    public void createPlato(String userName, PlatoDatoDto createPlatoDto) {
+    public void createPlato(PlatoDatoDto createPlatoDto, String userName) {
         // Crear el plato
         Plato plato = new Plato();
         plato.setUserId(userDao.findUserIdByUserName(userName));

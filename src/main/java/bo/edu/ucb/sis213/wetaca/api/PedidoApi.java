@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import bo.edu.ucb.sis213.wetaca.bl.PedidoBl;
+import bo.edu.ucb.sis213.wetaca.dto.CreatePedidoDto;
 import bo.edu.ucb.sis213.wetaca.dto.ResponseDto;
 import bo.edu.ucb.sis213.wetaca.util.AuthUtil;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
@@ -31,13 +32,13 @@ public class PedidoApi {
     // Registrar nueva mascota
     @PostMapping()
     public ResponseEntity<ResponseDto<String>> createPedido(@RequestHeader Map<String, String> headers,
-            @RequestBody CreatePedidoDto createPetDto) {
+            @RequestBody CreatePedidoDto createPedidoDto) {
         if (createPedidoDto.validate()) {
             try {
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 String userName = AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "REGISTRAR PEDIDO");
-                pedidoBl.createPet(userName, createPetDto);
+                pedidoBl.createPedido(userName, createPedidoDto);
                 ResponseDto<String> responseDto = new ResponseDto<>("Pedido Created", "", null);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (WetacaException e) {
@@ -73,9 +74,7 @@ public class PedidoApi {
     // Actualiza los datos de un pedido por id
     @PutMapping("/{pedido_id}")
     public ResponseEntity<ResponseDto<String>> updatePedido(@RequestHeader Map<String, String> headers,
-                                                         @RequestBody PedidoData updatePetData, @PathVariable Integer pedido_id
-
-    ) {
+            @RequestBody PedidoData updatePetData, @PathVariable Integer pedido_id) {
         if (updatePedidoData.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
@@ -121,6 +120,8 @@ public class PedidoApi {
             return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
         }
     }
+
+    // Lista de pedidos
     @GetMapping("/pedido-info")
     public ResponseEntity<ResponseDto> getPetInfo(@RequestHeader Map<String, String> headers) {
         try {
