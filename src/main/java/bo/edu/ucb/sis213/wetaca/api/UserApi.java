@@ -2,7 +2,7 @@ package bo.edu.ucb.sis213.wetaca.api;
 
 import bo.edu.ucb.sis213.wetaca.bl.SecurityBl;
 import bo.edu.ucb.sis213.wetaca.bl.Wtc_usuarioBl;
-import bo.edu.ucb.sis213.wetaca.dto.CreateUserDto;
+import bo.edu.ucb.sis213.wetaca.dto.CrearUsuarioDto;
 import bo.edu.ucb.sis213.wetaca.dto.ResponseDto;
 import bo.edu.ucb.sis213.wetaca.entity.UserPerson;
 import bo.edu.ucb.sis213.wetaca.util.AuthUtil;
@@ -23,7 +23,7 @@ public class UserApi {
     }
 
     @PostMapping
-    public ResponseDto<String> createUser(@RequestHeader Map<String, String> headers, @RequestBody CreateUserDto createUserDto) {
+    public ResponseDto<String> createUser(@RequestHeader Map<String, String> headers, @RequestBody CrearUsuarioDto createUserDto) {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             // Si no tiene error, se lanzaraá una excepción
