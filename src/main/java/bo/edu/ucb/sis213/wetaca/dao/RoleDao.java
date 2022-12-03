@@ -8,7 +8,8 @@ import java.util.List;
 
 @Component
 public interface RoleDao {
-
+ // Selecciona todos los roles
+   
     @Select("""
             SELECT role.role_id, role.name, role.description, role.status, role.tx_username, role.tx_host, role.tx_date
             FROM mr_role role

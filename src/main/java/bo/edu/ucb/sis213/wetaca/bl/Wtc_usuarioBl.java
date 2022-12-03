@@ -21,7 +21,7 @@ public class Wtc_usuarioBl {
     }
 
     //Metodo que permite crear un usuario
-    public void createUser(CrearUsuarioDto createUserDto) {
+    public void crearUsuario(CrearUsuarioDto createUserDto) {
         Wtc_usuario mrUser = new Wtc_usuario(); //Se crea un objeto de tipo Wtc_usuario
         mrUser.setCi_wtc_usuario(createUserDto.getNombreUsuario_wtc_usuario()); //Se asigna el nombre de usuario
         // Encriptar la contraseña

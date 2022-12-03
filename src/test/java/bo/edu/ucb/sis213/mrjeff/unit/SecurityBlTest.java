@@ -1,6 +1,6 @@
 package bo.edu.ucb.sis213.mrjeff.unit;
 
-import bo.edu.ucb.sis213.wetaca.bl.SecurityBl;
+import bo.edu.ucb.sis213.wetaca.bl.SeguridadBl;
 import bo.edu.ucb.sis213.wetaca.dao.Wtc_usuarioDao;
 import bo.edu.ucb.sis213.wetaca.dto.AuthReqDto;
 import bo.edu.ucb.sis213.wetaca.dto.AuthResDto;

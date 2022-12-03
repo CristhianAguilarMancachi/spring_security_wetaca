@@ -1,6 +1,6 @@
 package bo.edu.ucb.sis213.wetaca.api;
 
-import bo.edu.ucb.sis213.wetaca.bl.SecurityBl;
+import bo.edu.ucb.sis213.wetaca.bl.SeguridadBl;
 import bo.edu.ucb.sis213.wetaca.bl.Wtc_usuarioBl;
 import bo.edu.ucb.sis213.wetaca.dto.CrearUsuarioDto;
 import bo.edu.ucb.sis213.wetaca.dto.ResponseDto;
@@ -15,9 +15,9 @@ import java.util.Map;
 @RequestMapping("/api/v1/user")
 public class UserApi {
     private Wtc_usuarioBl userBl;
-    private SecurityBl securityBl;
+    private SeguridadBl securityBl;
 
-    public UserApi(Wtc_usuarioBl userBl, SecurityBl securityBl) {
+    public UserApi(Wtc_usuarioBl userBl, SeguridadBl securityBl) {
         this.userBl = userBl;
         this.securityBl = securityBl;
     }
@@ -28,7 +28,7 @@ public class UserApi {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             // Si no tiene error, se lanzaraá una excepción
             AuthUtil.verifyHasRole(jwt, "CREAR_USUARIO"); // Authorization
-            userBl.createUser(createUserDto);
+            userBl.crearUsuario(createUserDto);
             return new ResponseDto<>("Usuario creado correctamente", null, true);
         } catch (WetacaException ex) {
             return new ResponseDto<>(ex.getMessage(), null, false);

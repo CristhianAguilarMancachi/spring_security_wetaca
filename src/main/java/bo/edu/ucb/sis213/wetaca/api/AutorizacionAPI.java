@@ -1,6 +1,6 @@
 package bo.edu.ucb.sis213.wetaca.api;
 
-import bo.edu.ucb.sis213.wetaca.bl.SecurityBl;
+import bo.edu.ucb.sis213.wetaca.bl.SeguridadBl;
 import bo.edu.ucb.sis213.wetaca.dto.AuthReqDto;
 import bo.edu.ucb.sis213.wetaca.dto.AuthResDto;
 import bo.edu.ucb.sis213.wetaca.dto.ResponseDto;
@@ -10,12 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/auth")
-public class AuthApi {
+@RequestMapping("/api/v1/auth") //ruta de la api
+//clase AuthApi
+public class AutorizacionAPI {
 
-    private SecurityBl securityBl;
+    private SeguridadBl securityBl; //creamos un objeto de la clase SecurityBl
 
-    public AuthApi(SecurityBl securityBl) {
+    public AutorizacionAPI(SeguridadBl securityBl) {
         this.securityBl = securityBl;
     }
 
