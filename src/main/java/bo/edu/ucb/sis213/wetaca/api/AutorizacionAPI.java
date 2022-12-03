@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/auth") //ruta de la api
+@RequestMapping("/api/v1/autorizacion") //ruta de la api
 //clase AuthApi
 public class AutorizacionAPI {
 
@@ -45,16 +45,19 @@ public class AutorizacionAPI {
     }
 
     /**
-     * SOLO PARA PROPOSITOS ILUSTRATIVOS, ESTA ES LA FORMA CORRECTA EN EL ÁMBITO LABORAL.
+     * HACERLO ASÍ POR SIMPLICIDAD.
      * @param authReqDto
      * @return
      */
     @RequestMapping(value="/v2/", method = RequestMethod.POST)
+    
     public ResponseEntity<ResponseDto<AuthResDto>> authenticationV2(@RequestBody  AuthReqDto authReqDto) {
+        // ResponseEntity es un objeto que permite manejar el código de respuesta HTTP
         if (authReqDto != null && authReqDto.username() != null && authReqDto.password() != null) {
             // Retorna los tokens, null (porque no hay error), true porque fue exitoso
             try {
-                ResponseDto<AuthResDto> responseDto = new  ResponseDto<>(securityBl.authenticate(authReqDto), null, true);
+                
+                ResponseDto<AuthResDto> responseDto = new  ResponseDto<>(securityBl.authenticate(authReqDto), null, true); //creamos un objeto de la clase ResponseDto
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (WetacaException ex) {
                 ResponseDto<AuthResDto> responseDto = new ResponseDto<>(null, ex.getMessage(),

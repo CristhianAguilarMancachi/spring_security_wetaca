@@ -1,9 +1,9 @@
 package bo.edu.ucb.sis213.wetaca.dto;
 
 public class ResponseDto<T> {
-    private T data;
-    private String message;
-    private boolean success;
+    private T data; 
+    private String message; 
+    private boolean success; 
 
     public ResponseDto() {
     }

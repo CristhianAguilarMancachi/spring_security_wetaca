@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/api/v1/usuario")
 public class UserApi {
     private Wtc_usuarioBl userBl;
     private SeguridadBl securityBl;
@@ -49,7 +49,7 @@ public class UserApi {
         }
         try {
             String username = AuthUtil.isUserAuthenticated(AuthUtil.getTokenFromHeader(headers));
-            return new ResponseDto<>(this.userBl.findByUsername(username), null, true);
+            return new ResponseDto<>(this.userBl.buscarNombreUsuario(username), null, true);
         }
         catch (WetacaException ex) {
             return new ResponseDto<>(null, ex.getMessage(), false);
