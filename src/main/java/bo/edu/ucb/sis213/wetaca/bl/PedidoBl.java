@@ -3,6 +3,7 @@ package bo.edu.ucb.sis213.wetaca.bl;
 import org.springframework.stereotype.Service;
 
 import bo.edu.ucb.sis213.wetaca.dao.PedidoDao;
+import bo.edu.ucb.sis213.wetaca.dao.Wtc_usuarioDao;
 import bo.edu.ucb.sis213.wetaca.entity.Pedido;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 
@@ -20,7 +21,7 @@ public class PedidoBl {
     public void createPedido(String userName, PedidoDatoDto createPedidoDto) {
         // Crear el plato
         Pedido pedido = new Pedido();
-        pedido.setId_wtc_usuario(userDao.findUserIdByUserName(userName));
+        pedido.setId_wtc_usuario(userDao.buscarIdUsuarioPorUserName(userName));
         pedido.setNombre(createPedidoDto.getNombre());
         pedido.setDescripcion(createPedidoDto.getDescripcion());
         pedido.setIngredientes(createPedidoDto.getIngredientes());
