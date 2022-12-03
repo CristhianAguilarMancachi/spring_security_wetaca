@@ -25,7 +25,6 @@ public class AuthUtil {
      * @param jwtToken
      * @return
      */
-    // Path: src\main\java\bo\edu\ucb\sis213\wetaca\util\AuthUtil.java
     // Compara este snippet de src\main\java\bo\edu\ucb\sis213\wetaca\bl\SeguridadBl.java:
     //este metodo verifica el token
     public static String isUserAuthenticated(String jwt) {

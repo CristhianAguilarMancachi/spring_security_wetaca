@@ -39,7 +39,7 @@ public class PedidoApi {
                 String userName = AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "REGISTRAR PEDIDO");
                 pedidoBl.createPedido(userName, createPedidoDto);
-                ResponseDto<String> responseDto = new ResponseDto<>("Pedido Created", "", null);
+                ResponseDto<String> responseDto = new ResponseDto<>("Pedido Created", "", null); 
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (WetacaException e) {
                 ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
