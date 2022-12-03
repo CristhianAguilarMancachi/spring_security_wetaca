@@ -9,23 +9,25 @@ import bo.edu.ucb.sis213.wetaca.entity.UserPerson;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserBl {
-    private Wtc_usuarioDao mrUserDao;
-    private UserPersonDao userPersonDao;
+//Clase que contiene los metodos de negocio de la entidad Wtc_usuario
+public class Wtc_usuarioBl {
+    private Wtc_usuarioDao mrUserDao; //Se declara el objeto de tipo Wtc_usuarioDao
+    private UserPersonDao userPersonDao; //Se declara el objeto de tipo UserPersonDao
 
-    public UserBl(Wtc_usuarioDao mrUserDao, UserPersonDao userPersonDao) {
-        this.mrUserDao = mrUserDao;
+    //Constructor de la clase
+    public Wtc_usuarioBl(Wtc_usuarioDao mrUserDao, UserPersonDao userPersonDao) {
+        this.mrUserDao = mrUserDao; 
         this.userPersonDao = userPersonDao;
     }
 
+    //Metodo que permite crear un usuario
     public void createUser(CreateUserDto createUserDto) {
         Wtc_usuario mrUser = new Wtc_usuario();
         mrUser.setCi_wtc_usuario(createUserDto.getUsername());
-        // Encrypt secret with BCrypt
-        String secret = BCrypt.withDefaults().hashToString(12,
-                createUserDto.getSecret().toCharArray());
+        // Encriptar la contraseña
+        String secret = BCrypt.withDefaults().hashToString(12,createUserDto.getSecret().toCharArray());
         mrUser.setNombre_wtc_usuario(secret);
-        this.mrUserDao.createUser(mrUser);
+        this.mrUserDao.agregarNuevoUsuario(mrUser);
     }
 
     public UserPerson findByUsername(String username) {

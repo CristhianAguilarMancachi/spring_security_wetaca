@@ -1,7 +1,7 @@
 package bo.edu.ucb.sis213.wetaca.api;
 
 import bo.edu.ucb.sis213.wetaca.bl.SecurityBl;
-import bo.edu.ucb.sis213.wetaca.bl.UserBl;
+import bo.edu.ucb.sis213.wetaca.bl.Wtc_usuarioBl;
 import bo.edu.ucb.sis213.wetaca.dto.CreateUserDto;
 import bo.edu.ucb.sis213.wetaca.dto.ResponseDto;
 import bo.edu.ucb.sis213.wetaca.entity.UserPerson;
@@ -14,10 +14,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserApi {
-    private UserBl userBl;
+    private Wtc_usuarioBl userBl;
     private SecurityBl securityBl;
 
-    public UserApi(UserBl userBl, SecurityBl securityBl) {
+    public UserApi(Wtc_usuarioBl userBl, SecurityBl securityBl) {
         this.userBl = userBl;
         this.securityBl = securityBl;
     }
