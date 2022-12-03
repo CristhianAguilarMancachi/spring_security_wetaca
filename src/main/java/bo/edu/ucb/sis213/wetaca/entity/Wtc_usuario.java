@@ -162,9 +162,9 @@ public class Wtc_usuario {
     //metodo equals de la clase
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Wtc_usuario mrUser = (Wtc_usuario) o;
-        return id_wtc_usuario.equals(mrUser.id_wtc_usuario);
+        if (o == null || getClass() != o.getClass()) return false; //si el objeto es nulo o la clase no es igual retorna falso
+        Wtc_usuario mrUser = (Wtc_usuario) o; //se crea un objeto de la clase MrUser
+        return id_wtc_usuario.equals(mrUser.id_wtc_usuario); //se retorna el id del objeto
     }
 
     @Override

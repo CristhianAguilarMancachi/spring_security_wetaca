@@ -2,7 +2,7 @@ package bo.edu.ucb.sis213.wetaca.bl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import bo.edu.ucb.sis213.wetaca.dao.RoleDao;
-import bo.edu.ucb.sis213.wetaca.dao.UserDao;
+import bo.edu.ucb.sis213.wetaca.dao.Wtc_usuarioDao;
 import bo.edu.ucb.sis213.wetaca.dto.AuthReqDto;
 import bo.edu.ucb.sis213.wetaca.dto.AuthResDto;
 import bo.edu.ucb.sis213.wetaca.dto.Wtc_usuarioDto;
@@ -22,12 +22,12 @@ import java.util.List;
 public class SecurityBl {
 
     public final static String JWT_SECRET = "2022";
-    private UserDao mrUserDao;
+    private Wtc_usuarioDao mrUserDao;
 
     private RoleDao mrRoleDao;
 
 
-    public SecurityBl(UserDao mrUserDao, RoleDao mrRoleDao) {
+    public SecurityBl(Wtc_usuarioDao mrUserDao, RoleDao mrRoleDao) {
         this.mrUserDao = mrUserDao;
         this.mrRoleDao = mrRoleDao;
     }
@@ -38,7 +38,7 @@ public class SecurityBl {
      * @return
      */
     public Wtc_usuarioDto getUserByPk(Integer userId) {
-        Wtc_usuario mrUser = mrUserDao.findByPrimaryKey(userId);
+        Wtc_usuario mrUser = mrUserDao.findByPrimaryKey(userId); // Se obtiene el usuario de la BBDD
         // Transformamos la entidad de Base de Datos
         // a un DTO para retornar via API  (Data Transfer Object)
         Wtc_usuarioDto userDto = new Wtc_usuarioDto(mrUser.getId_wtc_usuario(), mrUser.getCi_wtc_usuario());

@@ -1,7 +1,7 @@
 package bo.edu.ucb.sis213.wetaca.bl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import bo.edu.ucb.sis213.wetaca.dao.UserDao;
+import bo.edu.ucb.sis213.wetaca.dao.Wtc_usuarioDao;
 import bo.edu.ucb.sis213.wetaca.dao.UserPersonDao;
 import bo.edu.ucb.sis213.wetaca.dto.CreateUserDto;
 import bo.edu.ucb.sis213.wetaca.entity.Wtc_usuario;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserBl {
-    private UserDao mrUserDao;
+    private Wtc_usuarioDao mrUserDao;
     private UserPersonDao userPersonDao;
 
-    public UserBl(UserDao mrUserDao, UserPersonDao userPersonDao) {
+    public UserBl(Wtc_usuarioDao mrUserDao, UserPersonDao userPersonDao) {
         this.mrUserDao = mrUserDao;
         this.userPersonDao = userPersonDao;
     }

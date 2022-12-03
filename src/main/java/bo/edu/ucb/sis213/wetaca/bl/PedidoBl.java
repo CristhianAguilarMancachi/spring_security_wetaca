@@ -9,9 +9,9 @@ import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 @Service
 public class PedidoBl {
     private final PedidoDao platoDao;
-    private final UserDao userDao;
+    private final Wtc_usuarioDao userDao;
 
-    public PedidoBl(PedidoDao pedidoDao, UserDao userDao) {
+    public PedidoBl(PedidoDao pedidoDao, Wtc_usuarioDao userDao) {
         this.pedidoDao = pedidoDao;
         this.userDao = userDao;
 

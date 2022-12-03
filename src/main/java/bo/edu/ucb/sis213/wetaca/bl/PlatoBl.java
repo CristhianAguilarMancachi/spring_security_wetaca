@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import bo.edu.ucb.sis213.wetaca.dao.PlatoDao;
-import bo.edu.ucb.sis213.wetaca.dao.UserDao;
+import bo.edu.ucb.sis213.wetaca.dao.Wtc_usuarioDao;
 import bo.edu.ucb.sis213.wetaca.dto.PlatoDatoDto;
 import bo.edu.ucb.sis213.wetaca.entity.Plato;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
@@ -14,9 +14,9 @@ import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 @Service
 public class PlatoBl {
     private final PlatoDao platoDao;
-    private final UserDao userDao;
+    private final Wtc_usuarioDao userDao;
 
-    public PlatoBl(PlatoDao platoDao, UserDao userDao) {
+    public PlatoBl(PlatoDao platoDao, Wtc_usuarioDao userDao) {
         this.platoDao = platoDao;
         this.userDao = userDao;
 
