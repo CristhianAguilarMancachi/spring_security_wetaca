@@ -2,11 +2,11 @@ package bo.edu.ucb.sis213.wetaca.bl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import bo.edu.ucb.sis213.wetaca.dao.UserDao;
-import bo.edu.ucb.sis213.wetaca.dto.CreateUserDto;
+//import bo.edu.ucb.sis213.wetaca.dto.CreateUserDto;
 import bo.edu.ucb.sis213.wetaca.entity.Wtc_usuario;
 import bo.edu.ucb.sis213.wetaca.entity.UserPerson;
 import org.springframework.stereotype.Service;
-
+/* 
 @Service
 public class UserBl {
     private UserDao mrUserDao;
@@ -31,3 +31,4 @@ public class UserBl {
         return userPersonDao.findByUsername(username);
     }
 }
+*/

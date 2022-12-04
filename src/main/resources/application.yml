@@ -5,9 +5,9 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/mr_jeff
+    url: jdbc:postgresql://localhost:5432/wetaca
     username: postgres
-    password: ABCabc123
+    password: gatito71
 
 
 

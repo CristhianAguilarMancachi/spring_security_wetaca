@@ -66,14 +66,14 @@ public class SeguridadBl {
                 // Procedo a generar el token
                 System.out.println("Las constraseñas coinciden se genera el token");
                 // Consultamos los roles que tiene el usuario
-                List<Cargo> roles = mrCargo.buscarCargoByUsername(credentials.username()); // Se obtiene el usuario de la BBDD
+                /*List<Cargo> roles = mrCargo.buscarCargoByUsername(credentials.username()); // Se obtiene el usuario de la BBDD
                 List<String> rolesAsString = new ArrayList<>(); // Lista de roles en formato String
                 for ( Cargo role : roles) {
                     rolesAsString.add(role.getDescripcion_cargo());
-                }
+                }*/
                 // Con esto no será necesario refrescar token.
                 // FIXME: Error de seguridad, los tokens deberían ser de corta duración.
-                result = generateTokenJwt(credentials.username(), 300000, rolesAsString);
+                result = generateTokenJwt(credentials.username(), 300000);
 
             } else {
                 System.out.println("Las constraseñas no coinciden");
@@ -107,7 +107,7 @@ public class SeguridadBl {
 
 
     /** Este metodo generea tokens JWT */
-    private AuthResDto generateTokenJwt(String subject, int expirationTimeInSeconds, List<String> roles) {
+    private AuthResDto generateTokenJwt(String subject, int expirationTimeInSeconds) {
         AuthResDto result = new AuthResDto();
         // Generar el token princpial
         try {
@@ -116,7 +116,7 @@ public class SeguridadBl {
             String token = JWT.create()
                     .withIssuer("ucb") // Quien lo emite
                     .withSubject(subject) // Quien lo usa
-                    .withArrayClaim("roles", roles.toArray(new String[roles.size()])) // Los roles
+                    //.withArrayClaim("roles", roles.toArray(new String[roles.size()])) // Los roles
                     .withClaim("refresh", false) // Es un token de acceso
                     .withExpiresAt(new Date(System.currentTimeMillis() + (expirationTimeInSeconds * 100000))) // Tiempo de expiración
                     .sign(algorithm); // Algoritmo de encriptación

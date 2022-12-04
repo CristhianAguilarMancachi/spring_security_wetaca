@@ -53,12 +53,12 @@ public interface Wtc_usuarioDao {
 
     //Selecciona la contraseña de un usuario por su nombre de usuario
     @Select("""
-            Select password_wtc_usuario
+            Select contrasena_wtc_usuario
             From 
                 wtc_usuario
             Where
                 nombreusuario_wtc_usuario = #{nombreusuario_wtc_usuario}
-                AND status_wtc_usuario = true
+                AND estado_wtc_usuario = true
             """)
     public String buscarPasswordPorUserName(String nombreusuario_wtc_usuario);
 

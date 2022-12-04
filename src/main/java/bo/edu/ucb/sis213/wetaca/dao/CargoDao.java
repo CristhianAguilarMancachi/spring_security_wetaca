@@ -11,14 +11,12 @@ import bo.edu.ucb.sis213.wetaca.entity.Cargo;
 public interface CargoDao {
     //Selecciona cargo por nombre de usuario
     @Select("""
-            SELECT cargo.cargo_id, cargo.nombre_cargo, cargo.descripcion_cargo, cargo.status_cargo, cargo.tx_username, cargo.tx_host, cargo.tx_date
-            FROM wtc_cargo cargo
+            SELECT cargo.cargo_id, cargo.descripcion_cargo, usr.id_wtc_usuario, cargo.tx_usuario, cargo.tx_host, cargo.tx_fecha
+            FROM cargo cargo
                      JOIN wtc_usuario_cargo usuario_cargo ON usuario_cargo.cargo_id = cargo.cargo_id
                      JOIN wtc_usuario usr ON usr.id_wtc_usuario = usuario_cargo.id_wtc_usuario
             WHERE usr.nombreusuario_wtc_usuario = #{nombreusuario_wtc_usuario}
-              AND cargo.status_cargo = true
-              AND usuario_cargo.status_usuario_cargo = true
-              AND usr.status_wtc_usuario = true
+             
             """)
     public List<Cargo> buscarCargoByUsername(String nombreusuario_wtc_usuario);
 
