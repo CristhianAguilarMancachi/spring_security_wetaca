@@ -1,35 +1,37 @@
 package bo.edu.ucb.sis213.wetaca.dto;
 
 public class CreatePlatoDto {
-    private String nombrePlato;
-    private String descripcionPlato;
+    private String nombre;
+    private String descripcion;
     private String ingredientes;
-    private Double precioPlato;
+    private Double precio;
+    private String categoria;
 
     public CreatePlatoDto() {
     }
 
-    public CreatePlatoDto(String nombrePlato, String descripcionPlato, String ingredientes, Double precioPlato) {
-        this.nombrePlato = nombrePlato;
-        this.descripcionPlato = descripcionPlato;
+    public CreatePlatoDto(String nombrePlato, String descripcionPlato, String ingredientes, Double precioPlato, String categoriaPlato) {
+        this.nombre = nombrePlato;
+        this.descripcion = descripcionPlato;
         this.ingredientes = ingredientes;
-        this.precioPlato = precioPlato;
+        this.precio = precioPlato;
+        this.categoria = categoriaPlato;
     }
 
-    public String getNombrePlato() {
-        return nombrePlato;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombrePlato(String nombrePlato) {
-        this.nombrePlato = nombrePlato;
+    public void setNombre(String nombrePlato) {
+        this.nombre = nombrePlato;
     }
 
-    public String getDescripcionPlato() {
-        return descripcionPlato;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setDescripcionPlato(String descripcionPlato) {
-        this.descripcionPlato = descripcionPlato;
+    public void setDescripcion(String descripcionPlato) {
+        this.descripcion = descripcionPlato;
     }
 
     public String getIngredientes() {
@@ -40,43 +42,50 @@ public class CreatePlatoDto {
         this.ingredientes = ingredientes;
     }
 
-    public Double getPrecioPlato() {
-        return precioPlato;
+    public Double getPrecio() {
+        return precio;
     }
 
-    public void setPrecioPlato(Double precioPlato) {
-        this.precioPlato = precioPlato;
+    public void setPrecio(Double precioPlato) {
+        this.precio = precioPlato;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoriaPlato) {
+        this.categoria = categoriaPlato;
     }
 
     @Override
     public String toString() {
         return "CreatePlatoDto{" +
-                "nombrePlato='" + nombrePlato + '\'' +
-                ", descripcionPlato='" + descripcionPlato + '\'' +
+                "nombrePlato='" + nombre + '\'' +
+                ", descripcionPlato='" + descripcion + '\'' +
                 ", ingredientes='" + ingredientes + '\'' +
-                ", precioPlato=" + precioPlato +
+                ", precioPlato=" + precio +
+                ", categoriaPlato='" + categoria + '\'' +
                 '}';
     }
 
+
     public boolean validate () {
-        if (this.nombrePlato == null || this.nombrePlato.isEmpty()) {
+        if (this.nombre == null || this.nombre.isEmpty()) {
             return false;
         }
-
-        if (this.descripcionPlato == null || this.descripcionPlato.isEmpty()) {
+        if (this.descripcion == null || this.descripcion.isEmpty()) {
             return false;
         }
-
         if (this.ingredientes == null || this.ingredientes.isEmpty()) {
             return false;
         }
-
-        if (this.precioPlato == null || this.precioPlato <= 0) {
+        if (this.precio == null || this.precio < 0) {
             return false;
         }
-
+        if (this.categoria == null || this.categoria.isEmpty()) {
+            return false;
+        }
         return true;
-
     }
-    
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Component;
 
+import bo.edu.ucb.sis213.wetaca.dto.PlatoDatoDto;
 import bo.edu.ucb.sis213.wetaca.entity.Plato;
 
 @Component
@@ -51,7 +52,7 @@ public interface PlatoDao {
                 FROM Plato
                 """
         )
-        List<Plato> findAllPlatos();
+        List<PlatoDatoDto> findAllPlatos();
 
         // Update de la tabla Plato con los atributos de la clase Plato que son nombre, descripcion, ingrediente, precio
         @Update(
@@ -96,7 +97,7 @@ public interface PlatoDao {
                 WHERE p.id_plato = #{idPlato}
                 """
         )
-        Plato findPlatoInfoByPlatoId(Integer idPlato);
+        PlatoDatoDto findPlatoInfoByPlatoId(Integer idPlato);
 
     
 

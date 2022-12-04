@@ -1,11 +1,11 @@
 package bo.edu.ucb.sis213.wetaca.bl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import bo.edu.ucb.sis213.wetaca.dao.RoleDao;
-import bo.edu.ucb.sis213.wetaca.dao.UserDao;
+import bo.edu.ucb.sis213.wetaca.dao.CargoDao;
+import bo.edu.ucb.sis213.wetaca.dao.Wtc_usuarioDao;
 import bo.edu.ucb.sis213.wetaca.dto.AuthReqDto;
 import bo.edu.ucb.sis213.wetaca.dto.AuthResDto;
-import bo.edu.ucb.sis213.wetaca.dto.UserDto;
+import bo.edu.ucb.sis213.wetaca.dto.Wtc_usuarioDto;
 import bo.edu.ucb.sis213.wetaca.entity.Cargo;
 import bo.edu.ucb.sis213.wetaca.entity.Wtc_usuario;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
@@ -19,17 +19,16 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class SecurityBl {
+public class SeguridadBl {
 
     public final static String JWT_SECRET = "2022";
-    private UserDao mrUserDao;
+    private Wtc_usuarioDao mrUserDao;
+    private CargoDao mrCargo;
 
-    private RoleDao mrRoleDao;
-
-
-    public SecurityBl(UserDao mrUserDao, RoleDao mrRoleDao) {
+    //Constructor de la clase
+    public SeguridadBl(Wtc_usuarioDao mrUserDao, CargoDao mrCargo) {
         this.mrUserDao = mrUserDao;
-        this.mrRoleDao = mrRoleDao;
+        this.mrCargo = mrCargo;
     }
 
     /**
@@ -37,12 +36,15 @@ public class SecurityBl {
      * @param userId
      * @return
      */
-    public UserDto getUserByPk(Integer userId) {
-        Wtc_usuario mrUser = mrUserDao.findByPrimaryKey(userId);
+    public Wtc_usuarioDto getUserByPk(Integer userId) {
+        Wtc_usuario mrUser = mrUserDao.buscarUserNamePorId(userId); // Se obtiene el usuario de la BBDD
         // Transformamos la entidad de Base de Datos
         // a un DTO para retornar via API  (Data Transfer Object)
-        UserDto userDto = new UserDto(mrUser.getId_wtc_usuario(), mrUser.getCi_wtc_usuario());
-        return userDto;
+        Wtc_usuarioDto userDto = new Wtc_usuarioDto(mrUser.getId_wtc_usuario(), mrUser.getCi_wtc_usuario(), 
+        mrUser.getNombre_wtc_usuario(), mrUser.getApellido_wtc_usuario(), mrUser.getCorreo_wtc_usuario(), 
+        mrUser.getFono_wtc_usuario(), mrUser.getId_ubicación(), mrUser.getEstado_wtc_usuario(),
+        mrUser.getNombreusuario_wtc_usuario(), mrUser.getContrasena_wtc_usuario());
+         return userDto;
     }
 
     /**
@@ -54,7 +56,7 @@ public class SecurityBl {
     public AuthResDto authenticate(AuthReqDto credentials) {
         AuthResDto result = new AuthResDto();
         System.out.println("Comenzando proceso de autenticación con: " + credentials);
-        String currentPasswordInBCrypt = mrUserDao.findSecretByUsername(credentials.username());
+        String currentPasswordInBCrypt = mrUserDao.buscarPasswordPorUserName(credentials.username());
         System.out.println("Se obtuvo la siguiente contraseña de bbdd: " + currentPasswordInBCrypt);
         // Consulto si los passwords coinciden
         if (currentPasswordInBCrypt != null ) {
@@ -64,14 +66,14 @@ public class SecurityBl {
                 // Procedo a generar el token
                 System.out.println("Las constraseñas coinciden se genera el token");
                 // Consultamos los roles que tiene el usuario
-                List<Cargo> roles = mrRoleDao.findRolesByUsername(credentials.username());
-                List<String> rolesAsString = new ArrayList<>();
+                List<Cargo> roles = mrCargo.buscarCargoByUsername(credentials.username()); // Se obtiene el usuario de la BBDD
+                List<String> rolesAsString = new ArrayList<>(); // Lista de roles en formato String
                 for ( Cargo role : roles) {
                     rolesAsString.add(role.getDescripcion_cargo());
                 }
                 // Con esto no será necesario refrescar token.
                 // FIXME: Error de seguridad, los tokens deberían ser de corta duración.
-                result = generateTokenJwt(credentials.username(), 30000, rolesAsString);
+                result = generateTokenJwt(credentials.username(), 300000, rolesAsString);
 
             } else {
                 System.out.println("Las constraseñas no coinciden");
@@ -89,14 +91,14 @@ public class SecurityBl {
      * @return
      */
     public Wtc_usuario validateJwtToken(String jwt) {
-        System.out.printf("VAlidando token: " + jwt);
+        System.out.println("Validando token: " + jwt);
         Wtc_usuario result = null;
         try {
-            String username = JWT.require(Algorithm.HMAC256(JWT_SECRET))
-                    .build()
-                    .verify(jwt)
-                    .getSubject();
-            result = mrUserDao.findByUsername(username);
+            String username = JWT.require(Algorithm.HMAC256(JWT_SECRET)) // Se verifica la firma
+                    .build() // Se construye el objeto
+                    .verify(jwt) // Se verifica el token
+                    .getSubject(); // Se obtiene el subject
+            result = mrUserDao.buscarUsuarioPorUserName(username); // Se obtiene el usuario de la BBDD
         } catch (Exception exception){
             throw new WetacaException("El usuario y cotraseña son incorrectos.", exception);
         }
@@ -110,21 +112,24 @@ public class SecurityBl {
         // Generar el token princpial
         try {
             Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
+            // Se genera el token
             String token = JWT.create()
-                    .withIssuer("ucb")
-                    .withSubject(subject)
-                    .withArrayClaim("roles", roles.toArray(new String[roles.size()]))
-                    .withClaim("refresh", false)
-                    .withExpiresAt(new Date(System.currentTimeMillis() + (expirationTimeInSeconds * 1000)))
-                    .sign(algorithm);
-            result.setToken(token);
+                    .withIssuer("ucb") // Quien lo emite
+                    .withSubject(subject) // Quien lo usa
+                    .withArrayClaim("roles", roles.toArray(new String[roles.size()])) // Los roles
+                    .withClaim("refresh", false) // Es un token de acceso
+                    .withExpiresAt(new Date(System.currentTimeMillis() + (expirationTimeInSeconds * 100000))) // Tiempo de expiración
+                    .sign(algorithm); // Algoritmo de encriptación
+            result.setToken(token); // Se asigna el token
+
+            // Generar el token de refresco
             String refreshToken = JWT.create()
-                    .withIssuer("ucb")
-                    .withSubject(subject)
-                    .withClaim("refresh", true)
-                    .withExpiresAt(new Date(System.currentTimeMillis() + (expirationTimeInSeconds * 1000 * 2)))
-                    .sign(algorithm);
-            result.setRefresh(refreshToken);
+                    .withIssuer("ucb") // Quien lo emite
+                    .withSubject(subject) // Quien lo usa
+                    .withClaim("refresh", true) // Es un token de refresco
+                    .withExpiresAt(new Date(System.currentTimeMillis() + (expirationTimeInSeconds * 100000 * 2))) // Tiempo de expiración
+                    .sign(algorithm); // Algoritmo de encriptación
+            result.setRefresh(refreshToken); // Se asigna el token de refresco
         } catch (JWTCreationException exception){
             throw new WetacaException("Error al generar el token", exception);
         }

@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bo.edu.ucb.sis213.wetaca.bl.PedidoBl;
 import bo.edu.ucb.sis213.wetaca.dto.CreatePedidoDto;
+import bo.edu.ucb.sis213.wetaca.dto.PedidoDatoDto;
 import bo.edu.ucb.sis213.wetaca.dto.ResponseDto;
+import bo.edu.ucb.sis213.wetaca.entity.Pedido;
 import bo.edu.ucb.sis213.wetaca.util.AuthUtil;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 
@@ -29,7 +31,7 @@ public class PedidoApi {
         this.pedidoBl = pedidoBl;
     }
 
-    // Registrar nueva mascota
+    // Registrar nuevo pedido
     @PostMapping()
     public ResponseEntity<ResponseDto<String>> createPedido(@RequestHeader Map<String, String> headers,
             @RequestBody CreatePedidoDto createPedidoDto) {
@@ -39,17 +41,16 @@ public class PedidoApi {
                 String userName = AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "REGISTRAR PEDIDO");
                 pedidoBl.createPedido(userName, createPedidoDto);
-                ResponseDto<String> responseDto = new ResponseDto<>("Pedido Created", "", null);
+                ResponseDto<String> responseDto = new ResponseDto<>("Pedido creado correctamente", "", false);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (WetacaException e) {
-                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
-                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+                ResponseDto<String> responseDto = new ResponseDto<>(e.getMessage(), "", false);
+                return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
             }
         } else {
             String statusCode = "";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
-                    httpMessageUtilMap.get(statusCode).getMessage());
-            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
+            ResponseDto<String> responseDto = new ResponseDto<>("Datos incorrectos", statusCode, false);
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -62,95 +63,91 @@ public class PedidoApi {
             // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            PedidoInfo pedidoInfo = pedidoBl.findPedidoInfoByPedidoId(pedidoId);
-            ResponseDto<PedidoInfo> responseDto = new ResponseDto<>(pedidoInfo, "", null);
-            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            CreatePedidoDto pedidoInfo = pedidoBl.findPedidoInfoByPedidoId(pedidoId);
+            return new ResponseEntity<>(new ResponseDto<>(pedidoInfo, "", false), HttpStatus.OK);
         } catch (WetacaException e) {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
-            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            ResponseDto<String> responseDto = new ResponseDto<>(e.getMessage(), "", false);
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }
 
     // Actualiza los datos de un pedido por id
     @PutMapping("/{pedido_id}")
     public ResponseEntity<ResponseDto<String>> updatePedido(@RequestHeader Map<String, String> headers,
-            @RequestBody PedidoData updatePetData, @PathVariable Integer pedido_id) {
+            @RequestBody CreatePedidoDto updatePedidoData, @PathVariable Integer pedido_id) {
         if (updatePedidoData.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE EL PEDIDO");
-                pedidoBl.updatePet(pet_id, updatePetData);
-                ResponseDto<String> responseDto = new ResponseDto<>("Pedido Updated", "", null);
+                pedidoBl.updatePedido(pedido_id, updatePedidoData);
+                ResponseDto<String> responseDto = new ResponseDto<>("Pedido actualizado correctamente", "", false);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (WetacaException e) {
-                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
-                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+                ResponseDto<String> responseDto = new ResponseDto<>(e.getMessage(), "", false);
+                return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
             }
         } else {
             String statusCode = "SCTY-1001";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
-                    httpMessageUtilMap.get(statusCode).getMessage());
-            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
+            ResponseDto<String> responseDto = new ResponseDto<>("Datos incorrectos", statusCode, false);
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }
     //Eliminación de pedido por id
     @PutMapping("/delete/{pedido_id}")
     public ResponseEntity<ResponseDto<String>> deletePet(@RequestHeader Map<String, String> headers,
-                                                         @RequestBody Pedido DeletePedido, @PathVariable Integer pet_id
+                                                         @RequestBody CreatePedidoDto deletePedido, @PathVariable Integer pedido_id
     ) {
-        if (DeletePet.validate()) {
+        if (deletePedido.validate()) {
             try {
                 // Verificamos que el usuario este autenticado
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "EDITAR INFORMACION DE EL PEDIDO");
-                pedidoBl.deletePedido(pedido_id, DeletePedido);
-                ResponseDto<String> responseDto = new ResponseDto<>("Pedido Delete", "", null);
+                pedidoBl.deletePedido(pedido_id);
+                ResponseDto<String> responseDto = new ResponseDto<>("Pedido eliminado correctamente", "", false);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (WetacaException e) {
-                ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
-                return new ResponseEntity<>(responseDto, e.getHttpStatus());
+                ResponseDto<String> responseDto = new ResponseDto<>(e.getMessage(), "", false);
+                return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
             }
         } else {
             String statusCode = "";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode,
-                    httpMessageUtilMap.get(statusCode).getMessage());
-            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
+            ResponseDto<String> responseDto = new ResponseDto<>("Datos incorrectos", statusCode, false);
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }
 
     // Lista de pedidos
-    @GetMapping("/pedido-info")
+    /*@GetMapping("/pedido-info")
     public ResponseEntity<ResponseDto> getPetInfo(@RequestHeader Map<String, String> headers) {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String userName = AuthUtil.getUserNameFromToken(jwt);
-            List<PedidoInfo> pedidoInfo = pedidoBl.findPedidoInfoByUserName(userName);
+            List<PedidoDatoDto> pedidoInfo = pedidoBl.findPedidoInfoByUserName(userName);
             ResponseDto<List<PedidoInfo>> responseDto = new ResponseDto<>(pedidoInfo, "", null);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (WetacaException e) {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
-            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            ResponseDto<String> responseDto = new ResponseDto<>(e.getMessage(), "", false);
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
 
-    // Información del pedido
-    @GetMapping("/{pedidoId}")
-    public ResponseEntity<ResponseDto> getPedidoInfoByPedidoId(@RequestHeader Map<String, String> headers,
-            @PathVariable Integer pedidoId) {
+    // Lista de todos los pedidos
+    @GetMapping("/all-pedido-info")
+    public ResponseEntity<ResponseDto> getAllPedidoInfo(@RequestHeader Map<String, String> headers) {
         try {
-            // Verificamos que el usuario este autenticado
             String jwt = AuthUtil.getTokenFromHeader(headers);
             AuthUtil.getUserNameFromToken(jwt);
-            PedidoData pedidoData = pedidoBl.findPedidoByPedidoId(pedidoId);
-            ResponseDto<PedidoData> responseDto = new ResponseDto<>(pedidoData, "", null);
-            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            AuthUtil.verifyHasRole(jwt, "VER TODOS LOS PEDIDOS");
+            List<CreatePedidoDto> pedidoInfo = pedidoBl.findAllPedidos();
+            return new ResponseEntity<>(new ResponseDto<>(pedidoInfo, "", false), HttpStatus.OK);
         } catch (WetacaException e) {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, e.getStatusCode(), e.getMessage());
-            return new ResponseEntity<>(responseDto, e.getHttpStatus());
+            ResponseDto<String> responseDto = new ResponseDto<>(e.getMessage(), "", false);
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }
+    
 
 }

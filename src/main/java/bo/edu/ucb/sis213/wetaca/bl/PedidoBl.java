@@ -1,38 +1,42 @@
 package bo.edu.ucb.sis213.wetaca.bl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import bo.edu.ucb.sis213.wetaca.dao.PedidoDao;
-import bo.edu.ucb.sis213.wetaca.dao.UserDao;
+//import bo.edu.ucb.sis213.wetaca.dao.Wtc_usuarioDao;
+import bo.edu.ucb.sis213.wetaca.dto.CreatePedidoDto;
+import bo.edu.ucb.sis213.wetaca.dto.PedidoDatoDto;
 import bo.edu.ucb.sis213.wetaca.entity.Pedido;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 
 @Service
 public class PedidoBl {
     private final PedidoDao pedidoDao;
-    private final UserDao userDao;
+    //private final Wtc_usuarioDao userDao;
 
-    public PedidoBl(PedidoDao pedidoDao, UserDao userDao) {
+    public PedidoBl(PedidoDao pedidoDao
+    //, Wtc_usuarioDao userDao
+    ) {
         this.pedidoDao = pedidoDao;
-        this.userDao = userDao;
+        //this.userDao = userDao;
 
     }
 
-    public void createPedido(String userName, PedidoDatoDto createPedidoDto) {
+    public void createPedido(String userName, CreatePedidoDto createPedidoDto) {
         // Crear el plato
         Pedido pedido = new Pedido();
-        pedido.setId_wtc_usuario(userDao.findUserIdByUserName(userName));
-        pedido.setNombre(createPedidoDto.getNombre());
-        pedido.setDescripcion(createPedidoDto.getDescripcion());
-        pedido.setIngredientes(createPedidoDto.getIngredientes());
-        pedido.setCategoria(createPedidoDto.getCategoria());
-        pedido.setPrecio(createPedidoDto.getPrecio());
+        pedido.setFechaPedido(createPedidoDto.getFechaPedido());
+        pedido.setSubtotal(createPedidoDto.getSubtotal());
+        pedido.setCiUsuario(createPedidoDto.getCiUsuario());
+        pedido.setFechaEntrega(createPedidoDto.getFechaEntrega());
         this.pedidoDao.createPedido(pedido);
     }
 
     // funcion findPedidoInfoByPedidoId similar a findPlatoInfoByPlatoId
-    public Pedido findPedidoInfoByPedidoId(Integer pedidoId) {
-        Pedido pedidoInfo = pedidoDao.findPedidoInfoByPedidoId(pedidoId);
+    public CreatePedidoDto findPedidoInfoByPedidoId(Integer pedidoId) {
+        CreatePedidoDto pedidoInfo = pedidoDao.findPedidoInfoByPedidoId(pedidoId);
         if(pedidoInfo == null) {
             throw new WetacaException("Pedido no encontrado");
         }
@@ -40,60 +44,45 @@ public class PedidoBl {
     }
 
     // funcion void updatePedido similar a void updatePlato
-    public void updatePedido(Integer pedidoId, PedidoDatoDto updatePedidoDto) {
-        Pedido pedido = pedidoDao.findPedidoByPedidoId(pedidoId);
+    public void updatePedido(Integer pedidoId, CreatePedidoDto updatePedidoDto) {
+        CreatePedidoDto pedido = pedidoDao.findPedidoInfoByPedidoId(pedidoId);
         if(pedido == null) {
             throw new WetacaException("Pedido no encontrado");
         }
-        pedido.setNombre(updatePedidoDto.getNombre());
-        pedido.setDescripcion(updatePedidoDto.getDescripcion());
-        pedido.setIngredientes(updatePedidoDto.getIngredientes());
-        pedido.setCategoria(updatePedidoDto.getCategoria());
-        pedido.setPrecio(updatePedidoDto.getPrecio());
+        pedido.setFechaPedido(updatePedidoDto.getFechaPedido());
+        pedido.setSubtotal(updatePedidoDto.getSubtotal());
+        pedido.setCantidad(updatePedidoDto.getCantidad());
+        pedido.setCiUsuario(updatePedidoDto.getCiUsuario());
+        pedido.setFechaEntrega(updatePedidoDto.getFechaEntrega());
         pedidoDao.updatePedido(pedido);
     }
 
     // Eliminacion pedido por id
     public void deletePedido(Integer pedidoId) {
-        Pedido pedido = pedidoDao.findPedidoByPedidoId(pedidoId);
+        CreatePedidoDto pedido = pedidoDao.findPedidoInfoByPedidoId(pedidoId);
         if(pedido == null) {
             throw new WetacaException("Pedido no encontrado");
         }
-        pedidoDao.deletePedido(pedido);
+        pedidoDao.deletePedido(pedidoId);
     }
 
     // Listado de pedidos
-    public List<PedidoInfo> findAllPedidos() {
-        return pedidoDao.findAllPedidos();
+    public List<CreatePedidoDto> findAllPedidos() {
+        List<CreatePedidoDto> pedido = pedidoDao.findAllPedidos();
+        if(pedido == null) {
+            throw new WetacaException("Pedido no encontrado");
+        }
+        return pedido;
     }
 
     // Listado de pedidos por usuario
-    public List<PedidoInfo> findPedidosByUserId(Integer userId) {
-        return pedidoDao.findPedidosByUserId(userId);
-    }
-
-    // Listado de pedidos por categoria
-    public List<PedidoInfo> findPedidosByCategoria(String categoria) {
-        return pedidoDao.findPedidosByCategoria(categoria);
-    }
-
-    /* 
-    // Listado de los platos
-    public List<PlatoInfo> findPlatoInfoByUserName(String userName) {
-        List<PlatoInfo> platoInfo = platoDao.findPlatoInfoByUserName(userName);
-        if (platoInfo.isEmpty()) {
-            throw new WetacaException("");
+    public List<PedidoDatoDto> findPedidosByUserId(Integer userId) {
+        List<PedidoDatoDto> pedido = pedidoDao.findPedidosByUsuarioId(userId);
+        if(pedido == null) {
+            throw new WetacaException("Pedido no encontrado");
         }
-        return platoInfo;
+        return pedido;
     }
 
-    // Datos mascota perfil
-    public PlatoData findPlatoByPlatoId(Integer petId) {
-        PlatoData platoData = platoDao.findPlatoDataByPlatoId(petId);
-        if (platoData == null) {
-            throw new WetacaException("");
-        }
-        return platoData;
-    }*/
 
 }

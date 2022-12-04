@@ -1,6 +1,6 @@
 package bo.edu.ucb.sis213.wetaca.util;
 
-import bo.edu.ucb.sis213.wetaca.bl.SecurityBl;
+import bo.edu.ucb.sis213.wetaca.bl.SeguridadBl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
@@ -14,10 +14,11 @@ public class AuthUtil {
      * @param jwtToken
      * @return
      */
+    // este metodo verifica el token
     public static String isUserAuthenticated(String jwt) {
         String subject = null;
         try {
-             subject = JWT.require(Algorithm.HMAC256(SecurityBl.JWT_SECRET))
+             subject = JWT.require(Algorithm.HMAC256(SeguridadBl.JWT_SECRET))
                     .build()
                     .verify(jwt)
                     .getSubject();
@@ -47,7 +48,7 @@ public class AuthUtil {
      * @return true si tiene el rol y false si no lo tiene
      */
     public static boolean tokenHasRole(String jwt, String role) {
-        List<String> roles = JWT.require(Algorithm.HMAC256(SecurityBl.JWT_SECRET))
+        List<String> roles = JWT.require(Algorithm.HMAC256(SeguridadBl.JWT_SECRET))
                 .build()
                 .verify(jwt)
                 .getClaim("roles").asList(String.class);
@@ -59,7 +60,7 @@ public class AuthUtil {
      * @param jwtToken
      */
     public static void verifyHasRole(String jwt, String role) {
-        List<String> roles = JWT.require(Algorithm.HMAC256(SecurityBl.JWT_SECRET))
+        List<String> roles = JWT.require(Algorithm.HMAC256(SeguridadBl.JWT_SECRET))
                 .build()
                 .verify(jwt)
                 .getClaim("roles").asList(String.class);
@@ -70,7 +71,7 @@ public class AuthUtil {
 
     // Funcion que nos permite obtener el id del usuario que esta autenticado || funcion de prueba
     public static String getUserNameFromToken(String jwt) {
-        return JWT.require(Algorithm.HMAC256(SecurityBl.JWT_SECRET))
+        return JWT.require(Algorithm.HMAC256(SeguridadBl.JWT_SECRET))
                 .build()
                 .verify(jwt)
                 .getClaim("username").asString();

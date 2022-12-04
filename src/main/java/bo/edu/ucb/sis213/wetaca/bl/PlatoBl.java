@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import bo.edu.ucb.sis213.wetaca.dao.PlatoDao;
-import bo.edu.ucb.sis213.wetaca.dao.UserDao;
+import bo.edu.ucb.sis213.wetaca.dto.CreatePlatoDto;
 import bo.edu.ucb.sis213.wetaca.dto.PlatoDatoDto;
 import bo.edu.ucb.sis213.wetaca.entity.Plato;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
@@ -14,15 +14,13 @@ import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 @Service
 public class PlatoBl {
     private final PlatoDao platoDao;
-    private final UserDao userDao;
 
-    public PlatoBl(PlatoDao platoDao, UserDao userDao) {
+    public PlatoBl(PlatoDao platoDao) {
         this.platoDao = platoDao;
-        this.userDao = userDao;
 
     }
 
-    public void createPlato(PlatoDatoDto createPlatoDto) {
+    public void createPlato(CreatePlatoDto createPlatoDto) {
         // Crear el plato
         Plato plato = new Plato();
         plato.setNombre(createPlatoDto.getNombre());
@@ -33,15 +31,15 @@ public class PlatoBl {
         this.platoDao.createPlato(plato);
     }
 
-    public PlatoInfo findPlatoInfoByPlatoId(Integer platoId) {
-        PlatoInfo platoInfo = platoDao.findPlatoInfoByPlatoId(platoId);
+    public Plato findPlatoInfoByPlatoId(Integer platoId) {
+        Plato platoInfo = platoDao.findPlatoByPlatoId(platoId);
         if (platoInfo == null) {
             throw new WetacaException("");
         }
         return platoInfo;
     }
 
-    public void updatePlato(Integer platoId, PlatoDatoDto platoData) {
+    public void updatePlato(Integer platoId, CreatePlatoDto platoData) {
         Plato plato = platoDao.findPlatoByPlatoId(platoId);
         if (plato == null) {
             throw new WetacaException("");
@@ -63,19 +61,19 @@ public class PlatoBl {
         this.platoDao.deletePlato(platoId);
     }
 
-    // Listado de los platos
-    public List<PlatoInfo> findPlatoInfoByUserName(String userName) {
-        List<PlatoInfo> platoInfo = platoDao.findPlatoInfoByUserName(userName);
+    // Listado de los platos con platoDao.findALL
+    public List<PlatoDatoDto> getPlatos() {
+        List<PlatoDatoDto> platoInfo = platoDao.findAllPlatos();
         if (platoInfo.isEmpty()) {
             throw new WetacaException("");
         }
         return platoInfo;
     }
 
-    // Listado de los platos con platoDao.findALL
-    public List<PlatoDatoDto> findAllPlatoInfo() {
-        List<PlatoDatoDto> platoInfo = platoDao.findAllPlatos();
-        if (platoInfo.isEmpty()) {
+    // Funcion getPlatoInfoByPlatoId
+    public PlatoDatoDto getPlato(Integer platoId) {
+        PlatoDatoDto platoInfo = platoDao.findPlatoInfoByPlatoId(platoId);
+        if (platoInfo == null) {
             throw new WetacaException("");
         }
         return platoInfo;

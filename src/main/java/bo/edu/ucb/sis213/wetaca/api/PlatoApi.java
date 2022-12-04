@@ -1,5 +1,6 @@
 package bo.edu.ucb.sis213.wetaca.api;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bo.edu.ucb.sis213.wetaca.bl.PlatoBl;
 import bo.edu.ucb.sis213.wetaca.dto.CreatePlatoDto;
+import bo.edu.ucb.sis213.wetaca.dto.PlatoDatoDto;
 import bo.edu.ucb.sis213.wetaca.dto.ResponseDto;
 import bo.edu.ucb.sis213.wetaca.util.AuthUtil;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
@@ -41,57 +43,57 @@ public class PlatoApi {
                 String username = AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "REGISTRAR PLATO");
                 platoBl.createPlato(platoDto);
-                ResponseDto<String> responseDto = new ResponseDto<>("Plato creado correctamente", "", false, null);
+                ResponseDto<String> responseDto = new ResponseDto<>("Plato creado correctamente", "", false);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             }catch(WetacaException ex){
-                ResponseDto<String> responseDto = new ResponseDto<>(null, ex.getStatusCode(), ex.getMessage());
-                return new ResponseEntity<>(responseDto, ex.getHttpStatus());
+                ResponseDto<String> responseDto = new ResponseDto<>(ex.getMessage(), ex.getStatusCode(), false);
+                return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
             }
 
          }else{
             String statusCode = "";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
-            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, true);
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }
 
     // Informacion del plato por id
     @GetMapping("/plato-info/{platoId}")
-    public ResponseEntity<PlatoDto>getPlatoInfo(@RequestHeader Map<String, String> headers, 
-            @PathVariable Integer pedidoId) {
+    public ResponseEntity<PlatoDatoDto>getPlatoInfo(@RequestHeader Map<String, String> headers, 
+            @PathVariable Integer platoId) {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String username = AuthUtil.getUserNameFromToken(jwt);
             AuthUtil.verifyHasRole(jwt, "OBTENER PLATO");
-            PlatoDto platoDto = platoBl.getPlatoInfo(pedidoId, username);
-            ResponseDto<PlatoDto> responseDto = new ResponseDto<>(platoDto, "", false, null);
-            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            PlatoDatoDto platoDto = platoBl.getPlato(platoId);
+            ResponseDto<PlatoDatoDto> responseDto = new ResponseDto<>(platoDto, "", false);
+            return new ResponseEntity<>(platoDto, HttpStatus.OK);
         } catch (WetacaException ex) {
-            ResponseDto<PlatoDto> responseDto = new ResponseDto<>(null, ex.getStatusCode(), ex.getMessage());
-            return new ResponseEntity<>(responseDto, ex.getHttpStatus());
+            ResponseDto<String> responseDto = new ResponseDto<>(null, ex.getStatusCode(), false);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     // Actualiza los datos de un plato por id
     @PutMapping("/{plato_id}")
     public ResponseEntity<ResponseDto<String>> updatePlato(@RequestHeader Map<String, String> headers,
-            @PathVariable Integer pedido_id, @RequestBody PlatoDto platoDto) {
+            @PathVariable Integer pedido_id, @RequestBody CreatePlatoDto platoDto) {
         if (platoDto.validate()) {
             try {
                 String jwt = AuthUtil.getTokenFromHeader(headers);
                 String username = AuthUtil.getUserNameFromToken(jwt);
                 AuthUtil.verifyHasRole(jwt, "ACTUALIZAR PLATO");
-                platoBl.updatePlato(pedido_id, platoDto, username);
-                ResponseDto<String> responseDto = new ResponseDto<>("Plato actualizado correctamente", "", false, null);
+                platoBl.updatePlato(pedido_id, platoDto);
+                ResponseDto<String> responseDto = new ResponseDto<>("Plato actualizado correctamente", "", false);
                 return new ResponseEntity<>(responseDto, HttpStatus.OK);
             } catch (WetacaException ex) {
-                ResponseDto<String> responseDto = new ResponseDto<>(null, ex.getStatusCode(), ex.getMessage());
-                return new ResponseEntity<>(responseDto, ex.getHttpStatus());
+                ResponseDto<String> responseDto = new ResponseDto<>(ex.getMessage(), ex.getStatusCode(), false);
+                return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
             }
         } else {
             String statusCode = "";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, httpMessageUtilMap.get(statusCode).getMessage());
-            return new ResponseEntity<>(responseDto, httpMessageUtilMap.get(statusCode).getHttpStatus());
+            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, false);
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -103,44 +105,44 @@ public class PlatoApi {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String username = AuthUtil.getUserNameFromToken(jwt);
             AuthUtil.verifyHasRole(jwt, "ELIMINAR PLATO");
-            platoBl.deletePlato(pedido_id, username);
-            ResponseDto<String> responseDto = new ResponseDto<>("Plato eliminado correctamente", "", false, null);
+            platoBl.deletePlato(pedido_id);
+            ResponseDto<String> responseDto = new ResponseDto<>("Plato eliminado correctamente", "", false);
             return new ResponseEntity<>(responseDto, HttpStatus.OK);
         } catch (WetacaException ex) {
-            ResponseDto<String> responseDto = new ResponseDto<>(null, ex.getStatusCode(), ex.getMessage());
-            return new ResponseEntity<>(responseDto, ex.getHttpStatus());
+            ResponseDto<String> responseDto = new ResponseDto<>(ex.getMessage(), ex.getStatusCode(), false);
+            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
         }
     }
 
     // Lista de platos
     @GetMapping("/plato-info")
-    public ResponseEntity<List<PlatoDto>> getPlatos(@RequestHeader Map<String, String> headers) {
+    public ResponseEntity<List<PlatoDatoDto>> getPlatos(@RequestHeader Map<String, String> headers) {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String username = AuthUtil.getUserNameFromToken(jwt);
             AuthUtil.verifyHasRole(jwt, "OBTENER PLATOS");
-            List<PlatoDto> platoDto = platoBl.getPlatos(username);
-            ResponseDto<List<PlatoDto>> responseDto = new ResponseDto<>(platoDto, "", false, null);
-            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            List<PlatoDatoDto> platoDto = platoBl.getPlatos();
+            ResponseDto<List<PlatoDatoDto>> responseDto = new ResponseDto<>(platoDto, "", false);
+            return new ResponseEntity<>(platoDto, HttpStatus.OK);
         } catch (WetacaException ex) {
-            ResponseDto<List<PlatoDto>> responseDto = new ResponseDto<>(null, ex.getStatusCode(), ex.getMessage());
-            return new ResponseEntity<>(responseDto, ex.getHttpStatus());
+            ResponseDto<List<PlatoDatoDto>> responseDto = new ResponseDto<>(null, ex.getStatusCode(), false);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 
     // Informacion del plato
     @GetMapping("/{platoId}")
-    public ResponseEntity<PlatoDto> getPlato(@RequestHeader Map<String, String> headers, @PathVariable Integer platoId) {
+    public ResponseEntity<PlatoDatoDto> getPlato(@RequestHeader Map<String, String> headers, @PathVariable Integer platoId) {
         try {
             String jwt = AuthUtil.getTokenFromHeader(headers);
             String username = AuthUtil.getUserNameFromToken(jwt);
             AuthUtil.verifyHasRole(jwt, "OBTENER PLATO");
-            PlatoDto platoDto = platoBl.getPlato(platoId, username);
-            ResponseDto<PlatoDto> responseDto = new ResponseDto<>(platoDto, "", false, null);
-            return new ResponseEntity<>(responseDto, HttpStatus.OK);
+            PlatoDatoDto platoDto = platoBl.getPlato(platoId);
+            ResponseDto<PlatoDatoDto> responseDto = new ResponseDto<>(platoDto, "", false);
+            return new ResponseEntity<>(platoDto, HttpStatus.OK);
         } catch (WetacaException ex) {
-            ResponseDto<PlatoDto> responseDto = new ResponseDto<>(null, ex.getStatusCode(), ex.getMessage());
-            return new ResponseEntity<>(responseDto, ex.getHttpStatus());
+            ResponseDto<PlatoDatoDto> responseDto = new ResponseDto<>(null, ex.getStatusCode(), false);
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 }

@@ -4,6 +4,7 @@ public class Pedido{
     private Integer idPedido;
     private String fechaPedido;
     private Double subtotal;
+    private Integer cantidad;
     private Boolean estado;
     private String ciUsuario;
     private String fechaEntrega;
@@ -15,10 +16,11 @@ public class Pedido{
     public Pedido() {
     }
 
-    public Pedido(Integer idPedido, String fechaPedido, Double subtotal, Boolean estado, String ciUsuario, String fechaEntrega, Integer idUsuario, String txUsuario, String txHost, String txFecha) {
+    public Pedido(Integer idPedido, String fechaPedido, Double subtotal, Integer cantidad, Boolean estado, String ciUsuario, String fechaEntrega, Integer idUsuario, String txUsuario, String txHost, String txFecha) {
         this.idPedido = idPedido;
         this.fechaPedido = fechaPedido;
         this.subtotal = subtotal;
+        this.cantidad = cantidad;
         this.estado = estado;
         this.ciUsuario = ciUsuario;
         this.fechaEntrega = fechaEntrega;
@@ -50,6 +52,14 @@ public class Pedido{
 
     public void setSubtotal(Double subtotal) {
         this.subtotal = subtotal;
+    }
+
+    public Integer getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
     }
 
     public Boolean getEstado() {
@@ -110,14 +120,8 @@ public class Pedido{
 
     @Override
     public String toString() {
-        return "WtcPedido{" + "idPedido=" + idPedido + ", fechaPedido=" + fechaPedido + ", subtotal=" + subtotal + ", estado=" + estado + ", ciUsuario=" + ciUsuario + ", fechaEntrega=" + fechaEntrega + ", idUsuario=" + idUsuario + ", txUsuario=" + txUsuario + ", txHost=" + txHost + ", txFecha=" + txFecha + '}';
+        return "Pedido{" + "idPedido=" + idPedido + ", fechaPedido=" + fechaPedido + ", subtotal=" + subtotal + ", cantidad=" + cantidad + ", estado=" + estado + ", ciUsuario=" + ciUsuario + ", fechaEntrega=" + fechaEntrega + ", idUsuario=" + idUsuario + ", txUsuario=" + txUsuario + ", txHost=" + txHost + ", txFecha=" + txFecha + '}';
     }
-
-
-
-    
-
-    
 
     
 
