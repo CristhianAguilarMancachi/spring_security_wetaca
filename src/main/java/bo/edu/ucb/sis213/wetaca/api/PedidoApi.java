@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import bo.edu.ucb.sis213.wetaca.bl.PedidoBl;
 import bo.edu.ucb.sis213.wetaca.dto.CreatePedidoDto;
-import bo.edu.ucb.sis213.wetaca.dto.PedidoDatoDto;
 import bo.edu.ucb.sis213.wetaca.dto.ResponseDto;
-import bo.edu.ucb.sis213.wetaca.entity.Pedido;
 import bo.edu.ucb.sis213.wetaca.util.AuthUtil;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 
