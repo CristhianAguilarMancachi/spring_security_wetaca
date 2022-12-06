@@ -1,17 +1,26 @@
-### Creamos nuevo usuarios
 
+### Creamos nuevo usuarios
 POST http://localhost:7777/api/v1/user
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJscmFtaXJleiIsInJvbGVzIjpbIkNSRUFSX1VTVUFSSU8iXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY2NjcyNjAxOH0.Bub49o57NHVIFq5-3-f9n6PvaaIz3U4xuRCKS0d1nlQ
 
 {
-  "username": "mike",
-  "secret" : "ABCabc123"
+  "ciuser": "758476343",
+  "firstName": "Ramon",
+  "lastName": "Valdez",
+  "email": "rvaldez@gmail.com",
+  "fono": "65739875",
+  "username": "rvaldez",
+  "secret" : "12345"
 }
 
-### Consultamos el usuario authenticado
+
+### Obtener usuario por correo
+GET http://localhost:7777/api/v1/user/email/aguilar.cristhiian@gmail.com
+
+
+### Consultamos el usuario autenticado por token, sin secret
 GET http://localhost:7777/api/v1/user/
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJscmFtaXJleiIsInJvbGVzIjpbIkNSRUFSX1VTVUFSSU8iXSwiaXNzIjoidWNiIiwicmVmcmVzaCI6ZmFsc2UsImV4cCI6MTY2Nzk2MTAyN30.RfG54w8p2y5yFTi3K5Ysx6p0Kyai8afEX7VfLWECe4E
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtdGFuY2FyYSIsImlzcyI6InVjYiIsInJlZnJlc2giOmZhbHNlLCJleHAiOjE2Njg5OTA2NDh9.UG8HKMVgIFRJ927QktMFXOwNixLmd1OBKX6Zn6FEOtg

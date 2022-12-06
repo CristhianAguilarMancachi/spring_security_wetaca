@@ -1,0 +1,11 @@
+POST http://localhost:7777/api/v1/plato
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nombre": "jamon con queso",
+  "precio": 7.5,
+  "descripcion": "plato con mucha proteina",
+  "ingredientes": "jamon y queso",
+  "categoria": "saludable"
+}

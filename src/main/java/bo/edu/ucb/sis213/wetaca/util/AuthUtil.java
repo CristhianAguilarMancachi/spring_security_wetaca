@@ -23,7 +23,7 @@ public class AuthUtil {
                     .verify(jwt)
                     .getSubject();
         } catch (JWTVerificationException ex) {
-            throw new WetacaException("Usuario no autenticado");
+            throw new WetacaException("Usuario no autenticado" + ex.getMessage());
         }
         return subject;
     }

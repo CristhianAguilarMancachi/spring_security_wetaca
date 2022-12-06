@@ -19,8 +19,8 @@ public interface PlatoDao {
     @Insert(
                 """
                 INSERT INTO
-                        Plato (nombre, descripcion, ingrediente, precio, status, tx_username, tx_host, tx_date)
-                VALUES (#{nombre}, #{descripcion}, #{ingrediente}, #{precio}, true, 'anonymous', 'localhost', now())
+                        plato (nombre_plato, precio_plato, detalle_plato, estado_plato, ingrediente_plato, seccion_plato)
+                VALUES (#{nombre}, #{precio}, #{descripcion}, true, #{ingredientes}, 'saludable')
                 """
         )
         void createPlato(Plato plato);

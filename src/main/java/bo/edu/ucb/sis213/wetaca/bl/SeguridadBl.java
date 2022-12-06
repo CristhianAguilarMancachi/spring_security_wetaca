@@ -6,7 +6,6 @@ import bo.edu.ucb.sis213.wetaca.dao.Wtc_usuarioDao;
 import bo.edu.ucb.sis213.wetaca.dto.AuthReqDto;
 import bo.edu.ucb.sis213.wetaca.dto.AuthResDto;
 import bo.edu.ucb.sis213.wetaca.dto.Wtc_usuarioDto;
-import bo.edu.ucb.sis213.wetaca.entity.Cargo;
 import bo.edu.ucb.sis213.wetaca.entity.Wtc_usuario;
 import bo.edu.ucb.sis213.wetaca.util.WetacaException;
 import com.auth0.jwt.JWT;
@@ -14,9 +13,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Service
 public class SeguridadBl {
@@ -42,7 +39,7 @@ public class SeguridadBl {
         // a un DTO para retornar via API  (Data Transfer Object)
         Wtc_usuarioDto userDto = new Wtc_usuarioDto(mrUser.getId_wtc_usuario(), mrUser.getCi_wtc_usuario(), 
         mrUser.getNombre_wtc_usuario(), mrUser.getApellido_wtc_usuario(), mrUser.getCorreo_wtc_usuario(), 
-        mrUser.getFono_wtc_usuario(), mrUser.getId_ubicación(), mrUser.getEstado_wtc_usuario(),
+        mrUser.getFono_wtc_usuario(), mrUser.getEstado_wtc_usuario(),
         mrUser.getNombreusuario_wtc_usuario(), mrUser.getContrasena_wtc_usuario());
          return userDto;
     }
@@ -72,8 +69,7 @@ public class SeguridadBl {
                     rolesAsString.add(role.getDescripcion_cargo());
                 }*/
                 // Con esto no será necesario refrescar token.
-                // FIXME: Error de seguridad, los tokens deberían ser de corta duración.
-                result = generateTokenJwt(credentials.username(), 300000);
+                result = generateTokenJwt(credentials.username(), 30000);
 
             } else {
                 System.out.println("Las constraseñas no coinciden");

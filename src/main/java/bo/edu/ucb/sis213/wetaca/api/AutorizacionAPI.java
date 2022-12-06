@@ -1,5 +1,7 @@
 package bo.edu.ucb.sis213.wetaca.api;
 
+
+// insta
 import bo.edu.ucb.sis213.wetaca.bl.SeguridadBl;
 import bo.edu.ucb.sis213.wetaca.dto.AuthReqDto;
 import bo.edu.ucb.sis213.wetaca.dto.AuthResDto;

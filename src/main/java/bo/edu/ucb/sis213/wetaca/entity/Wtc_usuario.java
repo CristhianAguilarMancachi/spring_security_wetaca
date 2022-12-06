@@ -1,6 +1,4 @@
 package bo.edu.ucb.sis213.wetaca.entity;
-
-import java.util.Date;
 import java.util.Objects;
 //clase de la tabla wtc usuario
 public class Wtc_usuario {
@@ -14,15 +12,13 @@ public class Wtc_usuario {
     private Boolean estado_wtc_usuario; //estado del cliente de la tabla wtc usuario
     private String nombreusuario_wtc_usuario; //nombre de usuario del cliente de la tabla wtc usuario
     private String contrasena_wtc_usuario; //contraseña del cliente de la tabla wtc usuario
-    private String txUsername;
-    private String txHost;
-    private Date txDate;
+
 
     public Wtc_usuario() {
     }
 
     //constructor de la clase
-    public Wtc_usuario(Integer id_wtc_usuario, String ci_wtc_usuario, String nombre_wtc_usuario, String apellido_wtc_usuario, String correo_wtc_usuario, String fono_wtc_usuario, int id_ubicación, Boolean estado_wtc_usuario, String nombreusuario_wtc_usuario, String contrasena_wtc_usuario, String txUsername, String txHost, Date txDate) {
+    public Wtc_usuario(Integer id_wtc_usuario, String ci_wtc_usuario, String nombre_wtc_usuario, String apellido_wtc_usuario, String correo_wtc_usuario, String fono_wtc_usuario, int id_ubicación, Boolean estado_wtc_usuario, String nombreusuario_wtc_usuario, String contrasena_wtc_usuario) {
         this.id_wtc_usuario = id_wtc_usuario;
         this.ci_wtc_usuario = ci_wtc_usuario;
         this.nombre_wtc_usuario = nombre_wtc_usuario;
@@ -33,9 +29,6 @@ public class Wtc_usuario {
         this.estado_wtc_usuario = estado_wtc_usuario;
         this.nombreusuario_wtc_usuario = nombreusuario_wtc_usuario;
         this.contrasena_wtc_usuario = contrasena_wtc_usuario;
-        this.txUsername = txUsername;
-        this.txHost = txHost;
-        this.txDate = txDate;
     }
 
     //getters y setters de la clase
@@ -119,30 +112,6 @@ public class Wtc_usuario {
         this.contrasena_wtc_usuario = contrasena_wtc_usuario;
     }
 
-    public String getTxUsername() {
-        return txUsername;
-    }
-
-    public void setTxUsername(String txUsername) {
-        this.txUsername = txUsername;
-    }
-
-    public String getTxHost() {
-        return txHost;
-    }
-
-    public void setTxHost(String txHost) {
-        this.txHost = txHost;
-    }
-
-    public Date getTxDate() {
-        return txDate;
-    }
-
-    public void setTxDate(Date txDate) {
-        this.txDate = txDate;
-    }
-
     
     @Override
     //metodo toString de la clase
@@ -152,9 +121,6 @@ public class Wtc_usuario {
                 ", username='" + ci_wtc_usuario + '\'' +
                 ", secret='" + nombre_wtc_usuario + '\'' +
                 ", status=" + estado_wtc_usuario +
-                ", txUsername='" + txUsername + '\'' +
-                ", txHost='" + txHost + '\'' +
-                ", txDate=" + txDate +
                 '}';
     }
 
@@ -163,8 +129,8 @@ public class Wtc_usuario {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false; //si el objeto es nulo o la clase no es igual retorna falso
-        Wtc_usuario mrUser = (Wtc_usuario) o; //se crea un objeto de la clase MrUser
-        return id_wtc_usuario.equals(mrUser.id_wtc_usuario); //se retorna el id del objeto
+        Wtc_usuario wcUser = (Wtc_usuario) o; //se crea un objeto de la clase MrUser
+        return id_wtc_usuario.equals(wcUser.id_wtc_usuario); //se retorna el id del objeto
     }
 
     @Override

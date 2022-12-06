@@ -4,8 +4,8 @@ Content-Type: application/json
 Accept: application/json
 
 {
-  "username": "caguilar",
-  "password": "Hola"
+  "username": "mtancara",
+  "password": "Adios1"
 }
 
 ### Autenticacion incorrecta

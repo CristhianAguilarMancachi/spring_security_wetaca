@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/wetaca
+    url: jdbc:postgresql://localhost:5432/bdd_wetaca
     username: postgres
     password: gatito71
 

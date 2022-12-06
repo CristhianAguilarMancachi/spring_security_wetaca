@@ -34,27 +34,23 @@ public class PlatoApi {
         this.platoBl = platoBl;
     }
 
+    /**
+     * Endpoint POST para crear un nuevo usuario
+     * @param platoDto
+     * @return ResponseDto
+     */
     @PostMapping()
-    public ResponseEntity<ResponseDto<String>> createPlato(@RequestHeader Map<String, String> headers,
-            @RequestBody CreatePlatoDto platoDto) {
-        if(platoDto.validate()){
-            try{
-                String jwt = AuthUtil.getTokenFromHeader(headers);
-                String username = AuthUtil.getUserNameFromToken(jwt);
-                AuthUtil.verifyHasRole(jwt, "REGISTRAR PLATO");
-                platoBl.createPlato(platoDto);
-                ResponseDto<String> responseDto = new ResponseDto<>("Plato creado correctamente", "", false);
-                return new ResponseEntity<>(responseDto, HttpStatus.OK);
-            }catch(WetacaException ex){
-                ResponseDto<String> responseDto = new ResponseDto<>(ex.getMessage(), ex.getStatusCode(), false);
-                return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
-            }
-
-         }else{
-            String statusCode = "";
-            ResponseDto<String> responseDto = new ResponseDto<>(null, statusCode, true);
-            return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    public ResponseDto<String> createUser(@RequestBody CreatePlatoDto platoDto) {
+        CreatePlatoDto user = platoDto;
+        System.out.println(user);
+        ResponseDto<String> responseDto;
+        try {
+            platoBl.createPlato(platoDto);
+            responseDto = new ResponseDto<>("Plato creado correctamente", null, true);
+        } catch (WetacaException ex) {
+            responseDto = new ResponseDto<>("", "No creado", false);
         }
+        return responseDto;
     }
 
     // Informacion del plato por id

@@ -47,6 +47,33 @@ public interface UserDao {
             """)
     void createUser (Wtc_usuario mrUser);
 
+    // Selecciona un usuario por su nombre de usuario
+    @Select("""
+            Select ci_wtc_usuario, nombre_wtc_usuario, apellido_wtc_usuario,
+             correo_wtc_usuario, fono_wtc_usuario, nombreusuario_wtc_usuario 
+            From 
+                wtc_usuario
+            Where
+                nombreusuario_wtc_usuario = #{nombreusuario_wtc_usuario}
+                AND status_wtc_usuario = true
+            """)
+    public Wtc_usuario buscarUsuarioPorUserName(String nombreusuario_wtc_usuario);
+
+    /**
+     * Encontrar un usuario por su email para verificar su existencia y evitar duplicados
+     * @param email
+     * @return FrUser
+     */
+    @Select("""
+        SELECT id_wtc_usuario, ci_wtc_usuario, nombre_wtc_usuario, apellido_wtc_usuario,
+        correo_wtc_usuario, fono_wtc_usuario, nombreusuario_wtc_usuario, contrasena_wtc_usuario, estado_wtc_usuario 
+            FROM wtc_usuario
+            WHERE
+                correo_wtc_usuario = #{email}
+                AND estado_wtc_usuario = 1
+            """)
+    Wtc_usuario findByEmail(String email);
+
     
 
 }
