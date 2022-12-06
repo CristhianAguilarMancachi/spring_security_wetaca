@@ -23,4 +23,4 @@ GET http://localhost:7777/api/v1/user/email/aguilar.cristhiian@gmail.com
 GET http://localhost:7777/api/v1/user/
 Content-Type: application/json
 Accept: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtdGFuY2FyYSIsImlzcyI6InVjYiIsInJlZnJlc2giOmZhbHNlLCJleHAiOjE2Njg5OTA2NDh9.UG8HKMVgIFRJ927QktMFXOwNixLmd1OBKX6Zn6FEOtg
+Authorization: Bearer 
